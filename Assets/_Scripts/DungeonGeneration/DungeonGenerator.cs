@@ -82,6 +82,7 @@ public class DungeonGenerator : MonoBehaviour
         //adjust case to minimize or enlarge dungeon
         while(k < 1000)
         {
+            Debug.Log(currentCell);
             k++;
 
             board[currentCell].visited = true;
