@@ -21,7 +21,9 @@ public class DungeonGenerator_two : MonoBehaviour
     public float level;       //level player is on
     private int numRooms;    //number of rooms allowed
     private int count = 0; // used to count number of rooms visited
-
+    
+    
+    List<int> rng = new List<int> { 0,0,0,0};
     List<Cell> board;
     List<int> deadEnds = new List<int>(); //rooms that have no neighbors added
 
@@ -65,7 +67,7 @@ public class DungeonGenerator_two : MonoBehaviour
     {
         //generate number of rooms in level
         //numRooms = Mathf.FloorToInt(Random.Range(0, 2) + 5 + level*2.6f);
-        numRooms = 40;
+        numRooms = 15;
 
         board = new List<Cell>();
 
@@ -90,7 +92,7 @@ public class DungeonGenerator_two : MonoBehaviour
         {
 
             currentCell = q.Dequeue();
-            Debug.Log("working" + currentCell);
+            Debug.Log("working " + currentCell);
 
             board[currentCell].visited = true;
             //if the maze generator reaches the final position of our board then stop the generation
@@ -109,54 +111,29 @@ public class DungeonGenerator_two : MonoBehaviour
             {
                 deadEnds.Add(currentCell);
             }
-            else
+            else 
             {
+
                 Shuffle(neighbors);
                 int newCell;
-                foreach (var i in neighbors)
+                if (currentCell == 35)
                 {
-                    q.Enqueue(i);
-                    newCell = i;
-
-
-
-                    //int newCell = neighbors[Random.Range(0, neighbors.Count)]; //get one of the neightbors randomly
-
-
-                    //cell is going either left or right
-                    if (newCell > currentCell)
+                    foreach (var i in neighbors)
                     {
-                        //cell is going right
-                        if (newCell - 1 == currentCell)
-                        {
-                            board[currentCell].status[2] = true; // since we moved right need to have currentcell RIGHT door open
-                            currentCell = newCell;
-                            board[currentCell].status[3] = true; //need to have the newCell LEFT door opened to create passage
-                        }
-                        else
-                        {
-                            board[currentCell].status[1] = true; // since we moved right need to have currentcell RIGHT door open
-                            currentCell = newCell;
-                            board[currentCell].status[0] = true; //need to have the newCell LEFT door opened to create passage
-                        }
-                    }
-                    else
-                    {
-                        //cell is going left
-                        if (newCell + 1 == currentCell)
-                        {
-                            board[currentCell].status[3] = true; // since we moved right need to have currentcell RIGHT door open
-                            currentCell = newCell;
-                            board[currentCell].status[2] = true; //need to have the newCell LEFT door opened to create passage
-                        }
-                        else
-                        {
-                            board[currentCell].status[0] = true; // since we moved right need to have currentcell RIGHT door open
-                            currentCell = newCell;
-                            board[currentCell].status[1] = true; //need to have the newCell LEFT door opened to create passage
-                        }
+                        q.Enqueue(i);
+                        newCell = i;
+                        editDoors(newCell, currentCell, board);
                     }
                 }
+                else
+                {
+                    q.Enqueue(neighbors[0]);
+                    newCell = neighbors[0];
+                    //int newCell = neighbors[Random.Range(0, neighbors.Count)]; //get one of the neightbors randomly
+
+                    editDoors(newCell, currentCell, board);
+                }
+              
             }
 
 
@@ -171,37 +148,41 @@ public class DungeonGenerator_two : MonoBehaviour
     List<int> CheckNeighbors(int cell)
     {
         List<int> neighbors = new List<int>();
-        int rng = Random.Range(0, 3);
+        int tmp;
 
-        if (count < numRooms &&  rng == 1)
+        // Generate and add 4 random integers to the list
+        for (int i = 0; i < 4; i++)
+        {
+            tmp = Random.Range(0, 2); // Generate a random integer
+            rng[i] = tmp;
+        }
+        Debug.Log(string.Join(", ", rng));
+
+
+        if (count < numRooms)
         {
             //check up neighbor, if it is within the size and if it has a cell there already
-            if (cell - size.x >= 0 && !board[Mathf.FloorToInt(cell - size.x)].visited)
+            if (cell - size.x >= 0 && !board[Mathf.FloorToInt(cell - size.x)].visited && rng[0] == 1)
             {
 
                 neighbors.Add(Mathf.FloorToInt(cell - size.x));
                 count += 1;
             }
-
             //check down neighbor
-            if (cell + size.x < board.Count && !board[Mathf.FloorToInt(cell + size.x)].visited)
+            if (cell + size.x < board.Count && !board[Mathf.FloorToInt(cell + size.x)].visited && rng[1] == 1)
             {
                 neighbors.Add(Mathf.FloorToInt(cell + size.x));
                 count += 1;
             }
-
-
             //check right neighbor
 
-            if ((cell + 1) % size.x != 0 && !board[Mathf.FloorToInt(cell + 1)].visited)
+            if ((cell + 1) % size.x != 0 && !board[Mathf.FloorToInt(cell + 1)].visited && rng[2] == 1)
             {
                 neighbors.Add(Mathf.FloorToInt(cell + 1));
                 count += 1;
             }
-
-
             //check left neighbor
-            if (cell % size.x != 0 && !board[Mathf.FloorToInt(cell - 1)].visited)
+            if (cell % size.x != 0 && !board[Mathf.FloorToInt(cell - 1)].visited && rng[3] == 1)
             {
                 neighbors.Add(Mathf.FloorToInt(cell - 1));
                 count += 1;
@@ -223,6 +204,39 @@ public class DungeonGenerator_two : MonoBehaviour
             int rand = Random.Range(i, inputList.Count);
             inputList[i] = inputList[rand];
             inputList[rand] = temp;
+        }
+    }
+
+    void editDoors(int newCell, int currentCell, List<Cell> board)
+    {
+        //cell is going either down or right
+        if (newCell > currentCell)
+        {
+            //cell is going right
+            if (newCell - 1 == currentCell)
+            {
+                board[currentCell].status[2] = true; // since we moved right need to have currentcell RIGHT door open
+                board[newCell].status[3] = true; //need to have the newCell LEFT door opened to create passage
+            }
+            else
+            {
+                board[currentCell].status[1] = true; // since we moved right need to have currentcell RIGHT door open
+                board[newCell].status[0] = true; //need to have the newCell LEFT door opened to create passage
+            }
+        }
+        else
+        {
+            //cell is going left
+            if (newCell + 1 == currentCell)
+            {
+                board[currentCell].status[3] = true; // since we moved right need to have currentcell RIGHT door open
+                board[newCell].status[2] = true; //need to have the newCell LEFT door opened to create passage
+            }
+            else
+            {
+                board[currentCell].status[0] = true; // since we moved right need to have currentcell RIGHT door open
+                board[newCell].status[1] = true; //need to have the newCell LEFT door opened to create passage
+            }
         }
     }
 }
