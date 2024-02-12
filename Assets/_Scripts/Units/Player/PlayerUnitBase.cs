@@ -10,7 +10,7 @@ public class PlayerUnitBase : UnitBase
 {
 
     public float moveSpeed;
-    float moveX, moveY;
+    public float moveX, moveY;
     public Rigidbody2D rb;
     private Vector2 moveDirection;
 

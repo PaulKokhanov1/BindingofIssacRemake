@@ -149,34 +149,18 @@ public class DungeonGenerator_three : MonoBehaviour
         if (cell >= 10) // add up neighbor
         {
             total += board[Mathf.FloorToInt(cell -10)].visited;
-/*            if (total <= 1 && board[cell - 10].visited == 1)
-            {
-                editDoors(cell - 10, cell, board);
-            }*/
         }
         if (cell < 90) // add down neighbor
         {
             total += board[Mathf.FloorToInt(cell + 10)].visited;
-/*            if (total <= 1 && board[cell + 10].visited == 1)
-            {
-                editDoors(cell + 10, cell, board);
-            }*/
         }
         if ((cell + 1) % 10 < 9) // add right neighbor
         {
             total += board[Mathf.FloorToInt(cell + 1)].visited;
-/*            if (total <= 1 && board[cell + 1].visited == 1)
-            {
-                editDoors(cell + 1, cell, board);
-            }*/
         }
         if ((cell - 1) % 10 > 1) // add left neighbor
         {
             total += board[Mathf.FloorToInt(cell - 1)].visited;
-/*            if (total <= 1 && board[cell - 1].visited == 1)
-            {
-                editDoors(cell - 1, cell, board);
-            }*/
         }
         return total;
     }

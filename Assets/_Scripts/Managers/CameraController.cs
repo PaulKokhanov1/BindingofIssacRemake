@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-//Used for Issac Specific logic, i.e Sprite animation, specific movement patterns
-public class Issac : PlayerUnitBase
+public class CameraController : MonoBehaviour
 {
-
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +13,6 @@ public class Issac : PlayerUnitBase
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 }
