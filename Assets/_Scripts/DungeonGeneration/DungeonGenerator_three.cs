@@ -13,10 +13,12 @@ public class DungeonGenerator_three : MonoBehaviour
         public int visited = 0;
         public bool[] status = new bool[4]; //used for door/wall opening
     }
-
+    //creates a singleton for all other scripts to be able to access it
+    public static DungeonGenerator_three instance;
     public Vector2 size; // the size of the grid
     private int startPos = 45; //start position of dungeon, always keeping grid at 10*10 
     public GameObject room;
+    public GameObject player;
     public Vector2 offset; //distance between each room
     public float level;       //level player is on
     private int numRooms;    //number of rooms allowed
@@ -33,11 +35,28 @@ public class DungeonGenerator_three : MonoBehaviour
         MazeGenerator();
     }
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Update is called once per frame
     void Update()
     {
-
+        
     }
+    public bool checkifPlayerInInstantiatedRoom(int posX, int posY)
+    {
+        if (board[Mathf.FloorToInt(posX + Mathf.Abs(posY) * 10)].visited == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
 
     void GenerateDungeon()

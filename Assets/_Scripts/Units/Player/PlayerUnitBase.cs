@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,13 +11,17 @@ public class PlayerUnitBase : UnitBase
 {
 
     public float moveSpeed;
-    public float moveX, moveY;
+    [HideInInspector] public float moveX, moveY;
     public Rigidbody2D rb;
     private Vector2 moveDirection;
+    [SerializeField] private Animator animator;
 
     public float acceleration = 8;
     public float decceleration = 24;
     public float velPwr = 0.87f;
+    [HideInInspector] public int posX = 0;
+    [HideInInspector] public int posY = 0;
+
     private Vector2 movement;
 
     // Start is called before the first frame update
@@ -25,10 +30,15 @@ public class PlayerUnitBase : UnitBase
         
     }
 
+    private void Awake()
+    {
+    }
+
     //good for processing inputs
     void Update()
     {
         ProcessInputs();
+        playerPosition();
     }
 
     //best to be used for physics calculations
@@ -45,6 +55,20 @@ public class PlayerUnitBase : UnitBase
 
         //normalized so that regardless of direction player moves at same speed
         moveDirection = new Vector2(moveX, moveY).normalized;
+
+        //to make sure character stays facing direction they were last moving towards
+        if (moveDirection.x != 0 || moveDirection.y != 0)
+        {
+            animator.SetFloat("X", moveDirection.x);
+            animator.SetFloat("Y", moveDirection.y);
+
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+        
     }
 
     void Move()
@@ -64,6 +88,17 @@ public class PlayerUnitBase : UnitBase
 
         //no need to add time.deltatime since its automatically added with forcemode
         rb.AddForce(movement * Vector2.one);
+
+    }
+
+    //convert player transform position to integers along grid for the map
+    void playerPosition()
+    {
+
+        posX = Mathf.FloorToInt((transform.position.x + DungeonGenerator_three.instance.offset.x/2) / DungeonGenerator_three.instance.offset.x);
+        posY = Mathf.FloorToInt((transform.position.y + DungeonGenerator_three.instance.offset.y/2) / DungeonGenerator_three.instance.offset.y);
+        /*Debug.Log(posX);
+        Debug.Log(posY);*/
 
     }
 }
