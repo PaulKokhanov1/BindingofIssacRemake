@@ -10,7 +10,8 @@ public enum EnemyState
 {
     Wander,
     Follow,
-    Die
+    Die,
+    Attack
 };
 
 public class EnemyController : MonoBehaviour
@@ -18,17 +19,20 @@ public class EnemyController : MonoBehaviour
 
 
 
-    public GameObject player;
+    private GameObject player;
 
     public EnemyState currState = EnemyState.Wander;    //initialize to wander since most enemies begin as so
 
     public float range; //how far enemy can see
     public float speed; //how fast enemy moves
+    public float attackRange;
+    public float cooldown;
     public Vector2 movementDirection;
 
 
     private bool chooseDir = false;
     private bool dead = false;
+    private bool coolDownAttack = false;
 
 
 
@@ -51,7 +55,9 @@ public class EnemyController : MonoBehaviour
                 Follow();
                 break;
             case (EnemyState.Die):
-
+                break;
+            case (EnemyState.Attack):
+                Attack();
                 break;
         }
 
@@ -62,6 +68,10 @@ public class EnemyController : MonoBehaviour
         {
 
             currState = EnemyState.Wander;
+        }
+        if(Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+        {
+            currState = EnemyState.Attack;
         }
     }
 
@@ -101,5 +111,28 @@ public class EnemyController : MonoBehaviour
     public void Follow()
     {
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+        movementDirection = (player.transform.position - transform.position ).normalized;       //this is to be used in the animator for the enemies
+    }
+
+    public void Attack()
+    {
+        if(!coolDownAttack)
+        {
+            GameManager.DamagePlayer(1);
+            StartCoroutine(CoolDown());
+        }
+        
+    }
+
+    private IEnumerator CoolDown()
+    {
+        coolDownAttack = true;
+        yield return new WaitForSeconds(cooldown);
+        coolDownAttack = false;
+    }
+
+    public void Death()
+    {
+        Destroy(gameObject);
     }
 }
