@@ -7,9 +7,7 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-
-    
-    public static GameManager instance;
+    public static GameManager instance { get; private set; }
 
 
     private static int health = 3;
@@ -24,9 +22,14 @@ public class GameManager : MonoBehaviour
 
     public static event Action OnPlayerDamaged;
 
-    private void Awake()
+    //Note by default if privacy level not specified, it automatically is private
+    void Awake()
     {
-        if (instance == null)
+        if(instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
         {
             instance = this;
         }

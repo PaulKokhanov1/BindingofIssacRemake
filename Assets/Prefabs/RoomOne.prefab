@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1245304861088678414}
   - component: {fileID: 3744291110467576799}
   - component: {fileID: 499994291767824417}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 8602155736921882702}
   - component: {fileID: 8939672604727374900}
   - component: {fileID: 7888064578220254753}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1935,7 +1935,7 @@ GameObject:
   - component: {fileID: 5102473669477110191}
   - component: {fileID: 3846600199380615324}
   - component: {fileID: 4441319959259146885}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2195,7 +2195,7 @@ GameObject:
   - component: {fileID: 3258233228649382820}
   - component: {fileID: 9161147832465608359}
   - component: {fileID: 1957154635551192567}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RoomOne
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2304,7 +2304,7 @@ GameObject:
   - component: {fileID: 2928824417661542213}
   - component: {fileID: 8647718481335998470}
   - component: {fileID: 8604192883057808479}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Down Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2567,7 +2567,7 @@ GameObject:
   - component: {fileID: 5457068637829596526}
   - component: {fileID: 3285304849170376358}
   - component: {fileID: 3477634809115801904}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Up Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2830,7 +2830,7 @@ GameObject:
   - component: {fileID: 770974752446919831}
   - component: {fileID: 2054602435586339571}
   - component: {fileID: 7070403257004277736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3719,7 +3719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 257464541261438765}
   - component: {fileID: 6082322356639165951}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3769,7 +3769,7 @@ GameObject:
   - component: {fileID: 3582443170420175519}
   - component: {fileID: 2399425323164566816}
   - component: {fileID: 8347812390393563169}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4156,7 +4156,7 @@ GameObject:
   - component: {fileID: 2589919444394215404}
   - component: {fileID: 1517868731723596974}
   - component: {fileID: 6960049709547670830}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Up Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4543,7 +4543,7 @@ GameObject:
   - component: {fileID: 1554947357527955862}
   - component: {fileID: 2529409896974509163}
   - component: {fileID: 9186858349780884834}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4802,7 +4802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7968470579680238661}
   - component: {fileID: 4080100841554549938}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Entrances
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4858,7 +4858,7 @@ GameObject:
   - component: {fileID: 5696173447879792245}
   - component: {fileID: 3299769832745773453}
   - component: {fileID: 5301025156788972906}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Down Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

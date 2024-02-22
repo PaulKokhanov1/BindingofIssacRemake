@@ -6,12 +6,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-//used for logic regarding Player Specific elements, like movement
+//used for logic regarding Player Specific elements, like movement & shooting
 public class PlayerUnitBase : UnitBase
 {
 
     public float moveSpeed;
     [HideInInspector] public float moveX, moveY;
+    float shootHor, shootVert;
     public Rigidbody2D rb;
     private Vector2 moveDirection;
     [SerializeField] private Animator animator;
@@ -19,10 +20,14 @@ public class PlayerUnitBase : UnitBase
     public float acceleration = 8;
     public float decceleration = 24;
     public float velPwr = 0.87f;
+    public GameObject bulletPrefab;
+    public float bulletSpeed;
+    public float fireDelay;
     [HideInInspector] public int posX = 0;
     [HideInInspector] public int posY = 0;
 
     private Vector2 movement;
+    private float lastFire;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +57,15 @@ public class PlayerUnitBase : UnitBase
         //strictly gets 0 or 1
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
+
+        shootHor = Input.GetAxisRaw("ShootHorizontal");
+        shootVert = Input.GetAxisRaw("ShootVertical");
+
+        if((shootHor != 0 || shootVert != 0) && Time.time > lastFire + fireDelay)
+        {
+            shoot();
+            lastFire = Time.time;
+        }
 
         //normalized so that regardless of direction player moves at same speed
         moveDirection = new Vector2(moveX, moveY).normalized;
@@ -88,6 +102,20 @@ public class PlayerUnitBase : UnitBase
 
         //no need to add time.deltatime since its automatically added with forcemode
         rb.AddForce(movement * Vector2.one);
+
+    }
+
+    void shoot()
+    {
+
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation) as GameObject;
+        bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
+        bullet.GetComponent<Rigidbody2D>().velocity = new Vector3(
+            (shootHor < 0) ? Mathf.Floor(shootHor) * bulletSpeed : Mathf.Ceil(shootHor) * bulletSpeed,
+            (shootVert < 0) ? Mathf.Floor(shootVert) * bulletSpeed : Mathf.Ceil(shootVert) * bulletSpeed,
+            0
+        );
+
 
     }
 

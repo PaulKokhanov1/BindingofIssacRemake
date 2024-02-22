@@ -17,8 +17,6 @@ public enum EnemyState
 public class EnemyController : MonoBehaviour
 {
 
-
-
     private GameObject player;
 
     public EnemyState currState = EnemyState.Wander;    //initialize to wander since most enemies begin as so
