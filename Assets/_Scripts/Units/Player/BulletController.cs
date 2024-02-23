@@ -23,4 +23,20 @@ public class BulletController : MonoBehaviour
         yield return new WaitForSeconds(lifeTime);
         Destroy(gameObject);
     }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("contact");
+        if(collision.tag == "Enemy")
+        {
+            collision.gameObject.GetComponent<EnemyController>().DamageEnemy(1);
+            Destroy(gameObject);
+        }
+
+        if (collision.tag == "Walls")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

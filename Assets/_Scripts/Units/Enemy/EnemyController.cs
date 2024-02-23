@@ -25,7 +25,9 @@ public class EnemyController : MonoBehaviour
     public float speed; //how fast enemy moves
     public float attackRange;
     public float cooldown;
+    public int health;
     public Vector2 movementDirection;
+    public EnemyHealth _enemyHealth;
 
 
     private bool chooseDir = false;
@@ -38,6 +40,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        _enemyHealth = new EnemyHealth(health, health);
     }
 
     // Update is called once per frame
@@ -132,5 +135,15 @@ public class EnemyController : MonoBehaviour
     public void Death()
     {
         Destroy(gameObject);
+    }
+
+    public void DamageEnemy(int damage)
+    {
+        _enemyHealth.Health -= damage;
+   
+        if (_enemyHealth.Health <= 0)
+        {
+            Death();
+        }
     }
 }
