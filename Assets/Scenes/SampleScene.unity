@@ -1201,6 +1201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 10, y: 10}
   room: {fileID: 583022976163133657, guid: dd680322cc091804093d5233a2a6862c, type: 3}
+  roomBoss: {fileID: 583022976163133657, guid: 1c39a99494b30c940a1a7c11ef1d12d9, type: 3}
+  roomTreasure: {fileID: 583022976163133657, guid: 1510d9f41c60a734f9951a25ca5c820a, type: 3}
   player: {fileID: 483300078}
   offset: {x: 18, y: 10}
   level: 1

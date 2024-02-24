@@ -21,12 +21,7 @@ public class Fly : MonoBehaviour
         if (enemyController.movementDirection.x != 0)
         {
             animator.SetFloat("X", enemyController.movementDirection.x);
+        }
 
-            animator.SetBool("isWalking", true);
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
-        }
     }
 }

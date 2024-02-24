@@ -12,6 +12,7 @@ public class DungeonGenerator_two : MonoBehaviour
         //could implement these two variables using onehot encoding and simplify it to a singular var
         public bool visited = false;
         public bool[] status = new bool[4]; //used for door/wall opening
+        public bool[] statusBoss = new bool[4]; //used for door/wall opening
     }
 
     public Vector2 size; // the size of the grid
