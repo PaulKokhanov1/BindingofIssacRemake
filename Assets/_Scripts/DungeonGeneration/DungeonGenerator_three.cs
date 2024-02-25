@@ -33,6 +33,7 @@ public class DungeonGenerator_three : MonoBehaviour
     private int roomCount = 0; // used to count number of rooms visited
 
     List<Cell> board;
+    public List<RoomBehaviour> rooms;
     List<int> n = new List<int> { 1, -1, 10, -10 }; //list of possible neighbors
     List<int> deadEnds = new List<int>(); //rooms that have no neighbors added
     Queue<int> q = new Queue<int>();     //queue to keep track of each cell for bfs 
@@ -115,6 +116,7 @@ public class DungeonGenerator_three : MonoBehaviour
                         var newRoom = Instantiate(roomBoss, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
                         newRoom.UpdateRoom(currentCell.status);
                         newRoom.name += " " + i + "-" + j;
+                        rooms.Add(newRoom);
 
                     }                    
                     else if (treasureroom == Mathf.FloorToInt(i + j * 10))
@@ -122,6 +124,8 @@ public class DungeonGenerator_three : MonoBehaviour
                         var newRoom = Instantiate(roomTreasure, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
                         newRoom.UpdateRoom(currentCell.status, currentCell.statusBoss, currentCell.statusTreasure);
                         newRoom.name += " " + i + "-" + j;
+                        rooms.Add(newRoom);
+
 
                     }
                     else
@@ -129,8 +133,10 @@ public class DungeonGenerator_three : MonoBehaviour
                         var newRoom = Instantiate(room, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
                         newRoom.UpdateRoom(currentCell.status, currentCell.statusBoss, currentCell.statusTreasure);
                         newRoom.name += " " + i + "-" + j;
+                        rooms.Add(newRoom);
+
                     }
-                       
+
                 }
             }
         }
