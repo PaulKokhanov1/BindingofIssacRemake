@@ -27,6 +27,7 @@ public class DungeonGenerator_three : MonoBehaviour
     public GameObject roomTreasure;
     public GameObject player;
     public Vector2 offset; //distance between each room
+    public GridController gridController;
     public float level;       //level player is on
     private int numRooms;    //number of rooms allowed
     private int minRooms = 7;    //number of rooms allowed
@@ -41,6 +42,7 @@ public class DungeonGenerator_three : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gridController = GameObject.FindGameObjectWithTag("Grid").GetComponent<GridController>();
         MazeGenerator(false);
     }
 
@@ -140,6 +142,8 @@ public class DungeonGenerator_three : MonoBehaviour
                 }
             }
         }
+
+        StartCoroutine(gridController.waitForDungeonGeneraton());
     }
 
     void MazeGenerator(bool regenerate = false)

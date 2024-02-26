@@ -1205,7 +1205,9 @@ MonoBehaviour:
   roomTreasure: {fileID: 583022976163133657, guid: 1510d9f41c60a734f9951a25ca5c820a, type: 3}
   player: {fileID: 483300078}
   offset: {x: 18, y: 10}
+  gridController: {fileID: 0}
   level: 1
+  rooms: []
 --- !u!1 &925295215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,6 +1383,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c717aec5e71ce6c44ae8b93a50b6a07c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1169301921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1169301923}
+  - component: {fileID: 1169301922}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Grid
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1169301922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169301921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b4b1bb7dcfea384f81e611121f7c500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid:
+    columns: 0
+    rows: 0
+    verticalOffset: 0
+    horizontalOffset: 0
+  gridTile: {fileID: 1924785420113368523, guid: 73160413b80204144ab8369016ee3c99, type: 3}
+  room: {fileID: 583022976163133657, guid: dd680322cc091804093d5233a2a6862c, type: 3}
+  avaliablePoints: []
+--- !u!4 &1169301923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1169301921}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 99.849014, y: -19.795048, z: -9.915254}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1408580672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,3 +1962,4 @@ SceneRoots:
   - {fileID: 998177461}
   - {fileID: 885027977}
   - {fileID: 1084311691}
+  - {fileID: 1169301923}
