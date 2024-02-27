@@ -19,51 +19,46 @@ public class GridController : MonoBehaviour
 
     public Grid grid; // to be able to change the values of the grid from the inspector
     public GameObject gridTile; //for visualizing the grid
-    public GameObject room;
     public List<Vector2> avaliablePoints = new List<Vector2>(); //storing all positions within our grid
 
     private PolygonCollider2D roomPolygonCollider;
+    private GameObject room;
 
     private void Awake()
     {
+        room = this.transform.parent.gameObject;
         roomPolygonCollider = room.GetComponent<PolygonCollider2D>();
-        Debug.Log(roomPolygonCollider);
         float roomWidth = Mathf.Abs(roomPolygonCollider.points[0].x) + Mathf.Abs(roomPolygonCollider.points[3].x);
         
         float roomHeight = Mathf.Abs(roomPolygonCollider.points[0].y) + Mathf.Abs(roomPolygonCollider.points[1].y);
-        Debug.Log("Room width is: " + roomWidth);
-        Debug.Log("Room height is: " + roomHeight);
 
-        grid.columns = Mathf.FloorToInt(roomWidth - 2f);
-        grid.rows = Mathf.FloorToInt(roomHeight - 2f);
+        grid.columns = Mathf.FloorToInt(roomWidth - 1f);
+        grid.rows = Mathf.FloorToInt(roomHeight - 1f);
 
-        //GenerateGrid();
+        GenerateGrid();
+
     }
 
     private void GenerateGrid()
     {
-        grid.verticalOffset += DungeonGenerator_three.instance.rooms[0].transform.localPosition.y;
-        grid.horizontalOffset += DungeonGenerator_three.instance.rooms[0].transform.localPosition.x;
+        grid.verticalOffset += room.transform.localPosition.y;
+        grid.horizontalOffset += room.transform.localPosition.x;
 
-        Debug.Log("vertical Offset is: " + grid.verticalOffset);
-        Debug.Log("horizontal Offset is: " + grid.horizontalOffset);
 
         for (int y = 0; y < grid.rows; y++)
         {
             for (int x = 0; x < grid.columns; x++)
             {
-
                 GameObject go = Instantiate(gridTile, transform);
-                go.GetComponent<Transform>().position = new Vector2(x - (grid.columns - grid.horizontalOffset), y-(grid.rows - grid.verticalOffset));   //setting position of each tile
+                go.GetComponent<Transform>().position = new Vector2(x - (grid.columns - grid.horizontalOffset), y - (grid.rows - grid.verticalOffset));   //setting position of each tile
                 go.name = "X: " + x + " , Y: " + y;
                 avaliablePoints.Add(go.transform.position);
+                go.SetActive(false);
+
             }
         }
+
+        GetComponentInParent<ObjectRoomSpawner>().InitializeObjectSpawning();
     }
 
-    public IEnumerator waitForDungeonGeneraton()
-    {
-        yield return new WaitForSeconds(1);
-        GenerateGrid();
-    }
 }

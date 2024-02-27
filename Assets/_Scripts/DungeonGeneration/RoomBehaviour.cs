@@ -10,6 +10,8 @@ public class RoomBehaviour : MonoBehaviour
     public GameObject[] doorsBoss;
     public GameObject[] doorsTreasure;
 
+    public int Xpos, Ypos;
+
     //this function is used to setup rooms to have opened doors or conceled walls
     //the status bool array is used to tell which doors are open and which are closed, if true @ index i => door is opened 
 
@@ -33,7 +35,6 @@ public class RoomBehaviour : MonoBehaviour
             else
             {
                 doors[i].SetActive(status[i]);
-
             }
 
             doorsTreasure[i].SetActive(statusTreasure[i]);

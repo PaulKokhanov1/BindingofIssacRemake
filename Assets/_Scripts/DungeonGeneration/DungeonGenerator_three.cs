@@ -27,14 +27,12 @@ public class DungeonGenerator_three : MonoBehaviour
     public GameObject roomTreasure;
     public GameObject player;
     public Vector2 offset; //distance between each room
-    public GridController gridController;
     public float level;       //level player is on
     private int numRooms;    //number of rooms allowed
     private int minRooms = 7;    //number of rooms allowed
     private int roomCount = 0; // used to count number of rooms visited
 
     List<Cell> board;
-    public List<RoomBehaviour> rooms;
     List<int> n = new List<int> { 1, -1, 10, -10 }; //list of possible neighbors
     List<int> deadEnds = new List<int>(); //rooms that have no neighbors added
     Queue<int> q = new Queue<int>();     //queue to keep track of each cell for bfs 
@@ -42,7 +40,6 @@ public class DungeonGenerator_three : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gridController = GameObject.FindGameObjectWithTag("Grid").GetComponent<GridController>();
         MazeGenerator(false);
     }
 
@@ -113,37 +110,35 @@ public class DungeonGenerator_three : MonoBehaviour
                 Cell currentCell = board[Mathf.FloorToInt(i + j * 10)];
                 if (currentCell.visited == 1)
                 {
+
+                    RoomBehaviour newRoom;
+                    
+                    //instantiate each room to its specific type of Room
                     if (bossroom == Mathf.FloorToInt(i + j * 10))
                     {
-                        var newRoom = Instantiate(roomBoss, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
+                        newRoom = Instantiate(roomBoss, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
                         newRoom.UpdateRoom(currentCell.status);
-                        newRoom.name += " " + i + "-" + j;
-                        rooms.Add(newRoom);
-
                     }                    
                     else if (treasureroom == Mathf.FloorToInt(i + j * 10))
                     {
-                        var newRoom = Instantiate(roomTreasure, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
+                        newRoom = Instantiate(roomTreasure, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
                         newRoom.UpdateRoom(currentCell.status, currentCell.statusBoss, currentCell.statusTreasure);
-                        newRoom.name += " " + i + "-" + j;
-                        rooms.Add(newRoom);
-
-
                     }
                     else
                     {
-                        var newRoom = Instantiate(room, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
+                        newRoom = Instantiate(room, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
                         newRoom.UpdateRoom(currentCell.status, currentCell.statusBoss, currentCell.statusTreasure);
-                        newRoom.name += " " + i + "-" + j;
-                        rooms.Add(newRoom);
-
                     }
+
+                    newRoom.name += " " + i + "-" + j;
+                    newRoom.Xpos = i;
+                    newRoom.Ypos = j;
 
                 }
             }
         }
 
-        StartCoroutine(gridController.waitForDungeonGeneraton());
+        //StartCoroutine(gridController.waitForDungeonGeneraton());
     }
 
     void MazeGenerator(bool regenerate = false)
