@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class RoomBehaviour : MonoBehaviour
@@ -9,8 +11,22 @@ public class RoomBehaviour : MonoBehaviour
     public GameObject[] doors;
     public GameObject[] doorsBoss;
     public GameObject[] doorsTreasure;
+    public GameObject[] doorColliders;
 
     public int Xpos, Ypos;
+
+    private float delay = 10f;
+    private float timer = 0f;
+
+    private void OnEnable()
+    {
+        PlayerUnitBase.OnPlayerPosChange += OnPlayerEnterRoom;
+    }
+
+    private void OnDisable()
+    {
+        PlayerUnitBase.OnPlayerPosChange -= OnPlayerEnterRoom;
+    }
 
     //this function is used to setup rooms to have opened doors or conceled walls
     //the status bool array is used to tell which doors are open and which are closed, if true @ index i => door is opened 
@@ -41,5 +57,78 @@ public class RoomBehaviour : MonoBehaviour
             doorsBoss[i].SetActive(statusBoss[i]);  
             walls[i].SetActive(!(status[i] | statusBoss[i] | statusTreasure[i]));
         }
+    }
+
+    public void OnPlayerEnterRoom(int playerPosX, int playerPosY)
+    {
+        if (Mathf.Abs(playerPosX) == Xpos && Mathf.Abs(playerPosY) == Ypos)
+        {
+            //player is in this instance of the rooms
+            Debug.Log("Player is in Room: " + Xpos + ", " + Ypos);
+
+
+            UpdateCurrentRooms();
+
+            EnemyController[] enemies = GetComponentsInChildren<EnemyController>();
+            if (enemies.Length > 0)
+            {
+                StartCoroutine(CountdownToCloseRooms());
+            }
+            
+        }
+    }
+    private void UpdateCurrentRooms()
+    {
+        EnemyController[] enemies = GetComponentsInChildren<EnemyController>();
+        if (enemies != null)
+        {
+            foreach(EnemyController enemy in enemies)
+            {
+                enemy.notInRoom = false;
+                enemy.currState = EnemyState.Wander;
+                enemy.Wander(false);
+            }
+        }
+    }
+
+    private void closeCurrentRoomDoors()
+    {
+        for (int i = 0; i < doors.Length; i++)
+        { 
+            if(doors[i].activeSelf || doorsBoss[i].activeSelf || doorsTreasure[i].activeSelf)
+            {
+                doorColliders[i].SetActive(true);
+                Debug.Log("Set door collider active");
+            }
+        }
+    }
+
+    public void checkEnemiesInRoom()
+    {
+        EnemyController[] enemies = GetComponentsInChildren<EnemyController>();
+        Debug.Log(enemies.Length);
+        if (enemies.Length == 1)
+        {
+            Debug.Log("Open doors called");
+            openAllDoors();
+        }
+    }
+
+    private void openAllDoors()
+    {
+        for (int i = 0; i < doorColliders.Length; i++)
+        {
+            doorColliders[i].SetActive(false);
+        }
+    }
+
+    public IEnumerator CountdownToCloseRooms()
+    {
+        Debug.Log("Timer Started");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("Timer Started");
+
+        closeCurrentRoomDoors();
+
     }
 }

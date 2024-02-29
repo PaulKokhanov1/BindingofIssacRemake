@@ -13,7 +13,7 @@ public class Boney : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyController = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyController>();
+        enemyController = GetComponentInParent<EnemyController>();
         animator = GetComponent<Animator>();
     }
 

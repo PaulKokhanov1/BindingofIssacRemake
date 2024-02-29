@@ -21,6 +21,7 @@ public class EnemyHealth
         set
         {
             _currentHealth = value;     //value is a keyword
+
         }
     }    
     public int MaxHealth

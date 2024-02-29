@@ -208,12 +208,12 @@ public class DungeonGenerator_three : MonoBehaviour
                 }
             }
 
-            if (!created)
+            if (!created && currentCell != startPos)
             {
                 deadEnds.Add(currentCell);
             }
         }
-        while (roomCount < minRooms)
+        if (roomCount < minRooms)
         {
             MazeGenerator(true);
 

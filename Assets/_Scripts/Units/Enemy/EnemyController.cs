@@ -1,13 +1,15 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 
 //Will use finite stae machine for enemy movement
 public enum EnemyState
 {
+    Idle,
     Wander,
     Follow,
     Die,
@@ -19,13 +21,14 @@ public class EnemyController : MonoBehaviour
 
     private GameObject player;
 
-    public EnemyState currState = EnemyState.Wander;    //initialize to wander since most enemies begin as so
+    public EnemyState currState = EnemyState.Idle;    //initialize to idle since most enemies begin as so
 
     public float range; //how far enemy can see
     public float speed; //how fast enemy moves
     public float attackRange;
     public float cooldown;
     public int health;
+    public bool notInRoom = true;
     public Vector2 movementDirection;
     public EnemyHealth _enemyHealth;
 
@@ -48,7 +51,9 @@ public class EnemyController : MonoBehaviour
     {
         switch(currState) //do different things based on state
         {
-
+            case(EnemyState.Idle):
+                Idle();
+                break;
             case (EnemyState.Wander):
                 Wander();
                 break;
@@ -62,18 +67,33 @@ public class EnemyController : MonoBehaviour
                 break;
         }
 
-        if (isPlayerInRange(range) && currState != EnemyState.Die)
-        {
-            currState = EnemyState.Follow;
-        } else if (!isPlayerInRange(range) && currState != EnemyState.Die)
+        if (!notInRoom)
         {
 
-            currState = EnemyState.Wander;
+            if (isPlayerInRange(range) && currState != EnemyState.Die)
+            {
+                currState = EnemyState.Follow;
+            }
+            else if (!isPlayerInRange(range) && currState != EnemyState.Die)
+            {
+
+                currState = EnemyState.Wander;
+            }
+            if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+            {
+                currState = EnemyState.Attack;
+            }
         }
-        if(Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+        else
         {
-            currState = EnemyState.Attack;
+            currState = EnemyState.Idle;
         }
+    }
+
+    public void Idle()
+    {
+        StopCoroutine(ChooseDirection());
+        chooseDir = false;
     }
 
     /// <summary>
@@ -84,20 +104,24 @@ public class EnemyController : MonoBehaviour
         return Vector3.Distance(transform.position, player.transform.position) <= range;
     }
 
-    private IEnumerator ChooseDirection()
+    private IEnumerator ChooseDirection(bool Pause = true)
     {
         chooseDir = true;
-        yield return new WaitForSeconds(Random.Range(1f,4f));
-        movementDirection = new Vector2(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
+        if (Pause)
+        {
+            yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 4f));
+
+        }
+        movementDirection = new Vector2(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)).normalized;
 
         chooseDir = false;      //allows us to essentially keep looping over this coroutine
     }
 
-    public void Wander()
+    public void Wander(bool Pause = true)
     {
         if (!chooseDir)
         {
-            StartCoroutine(ChooseDirection());
+            StartCoroutine(ChooseDirection(Pause));
         }
 
 
@@ -134,7 +158,9 @@ public class EnemyController : MonoBehaviour
 
     public void Death()
     {
+        gameObject.GetComponentInParent<RoomBehaviour>().checkEnemiesInRoom();
         Destroy(gameObject);
+        
     }
 
     public void DamageEnemy(int damage)

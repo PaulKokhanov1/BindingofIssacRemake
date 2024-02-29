@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 
@@ -23,11 +24,46 @@ public class PlayerUnitBase : UnitBase
     public GameObject bulletPrefab;
     public float bulletSpeed;
     public float fireDelay;
-    [HideInInspector] public int posX = 0;
-    [HideInInspector] public int posY = 0;
+
+    public delegate void OnPlayerPosChangeDelegate(int XVal, int YVal);
+    public static event OnPlayerPosChangeDelegate OnPlayerPosChange;
+
+    [HideInInspector] public int posX
+    {
+        get { return _posX; }
+        set
+        {
+            if (_posX == value) return;
+            _posX = value;
+            if (OnPlayerPosChange != null)
+            {
+                OnPlayerPosChange(_posX, _posY);
+                //Debug.Log("Player position Changed: " + "posX: " + _posX + " posY: "+ _posY);
+            }
+                
+        }
+    }
+    [HideInInspector] public int posY
+    {
+        get { return _posY; }
+        set
+        {
+            if (_posY == value) return;
+            _posY = value;
+            if (OnPlayerPosChange != null)
+            {
+                OnPlayerPosChange(_posX, _posY);
+                //Debug.Log("Player position Changed: " + "posX: " + _posX + " posY: " + _posY);
+
+
+            }
+        }
+    }
 
     private Vector2 movement;
     private float lastFire;
+    private int _posX = 0;
+    private int _posY = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -122,7 +158,7 @@ public class PlayerUnitBase : UnitBase
     //convert player transform position to integers along grid for the map
     void playerPosition()
     {
-
+        
         posX = Mathf.FloorToInt((transform.position.x + DungeonGenerator_three.instance.offset.x/2) / DungeonGenerator_three.instance.offset.x);
         posY = Mathf.FloorToInt((transform.position.y + DungeonGenerator_three.instance.offset.y/2) / DungeonGenerator_three.instance.offset.y);
 /*        Debug.Log(posX);

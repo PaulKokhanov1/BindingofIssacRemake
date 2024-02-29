@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd4acf6125b3dc41b6d279b4c647577, type: 3}
   m_Name: BoneyEnemy
   m_EditorClassIdentifier: 
-  itemToSpawn: {fileID: 0}
-  minSpawn: 0
-  maxSpawn: 0
+  itemToSpawn: {fileID: 5215311847665633837, guid: 7f393116ab79c1a4a81167ac058361c3, type: 3}
+  minSpawn: 1
+  maxSpawn: 5
