@@ -10,6 +10,7 @@ public class BulletController : MonoBehaviour
     void Start()
     {
         StartCoroutine(DeathDelay());
+        transform.localScale = new Vector2(GameManager.BulletSize, GameManager.BulletSize);
     }
 
     // Update is called once per frame

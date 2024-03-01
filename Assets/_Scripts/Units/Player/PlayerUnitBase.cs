@@ -14,6 +14,7 @@ public class PlayerUnitBase : UnitBase
     public float moveSpeed;
     [HideInInspector] public float moveX, moveY;
     float shootHor, shootVert;
+    float bulletAngle = 45f;
     public Rigidbody2D rb;
     private Vector2 moveDirection;
     [SerializeField] private Animator animator;
@@ -90,6 +91,10 @@ public class PlayerUnitBase : UnitBase
 
     void ProcessInputs()
     {
+
+        moveSpeed = GameManager.MoveSpeed;
+        fireDelay = GameManager.FireRate;
+
         //strictly gets 0 or 1
         moveX = Input.GetAxisRaw("Horizontal");
         moveY = Input.GetAxisRaw("Vertical");
@@ -143,14 +148,45 @@ public class PlayerUnitBase : UnitBase
 
     void shoot()
     {
+        if (!GameManager.DoubleShot)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation) as GameObject;
+            bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
+            bullet.GetComponent<Rigidbody2D>().velocity = new Vector3(
+                (shootHor < 0) ? Mathf.Floor(shootHor) * bulletSpeed : Mathf.Ceil(shootHor) * bulletSpeed,
+                (shootVert < 0) ? Mathf.Floor(shootVert) * bulletSpeed : Mathf.Ceil(shootVert) * bulletSpeed,
+                0
+            );
+        }
+        else
+        {
+            GameObject bulletOne = Instantiate(bulletPrefab, transform.position, transform.rotation) as GameObject;
+            GameObject bulletTwo = Instantiate(bulletPrefab, transform.position, transform.rotation) as GameObject;
+            float bulletAngleInRadian = bulletAngle * Mathf.Deg2Rad;
 
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation) as GameObject;
-        bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
-        bullet.GetComponent<Rigidbody2D>().velocity = new Vector3(
-            (shootHor < 0) ? Mathf.Floor(shootHor) * bulletSpeed : Mathf.Ceil(shootHor) * bulletSpeed,
-            (shootVert < 0) ? Mathf.Floor(shootVert) * bulletSpeed : Mathf.Ceil(shootVert) * bulletSpeed,
-            0
-        );
+            bulletOne.AddComponent<Rigidbody2D>().gravityScale = 0;
+            bulletTwo.AddComponent<Rigidbody2D>().gravityScale = 0;
+            if (shootHor < 0)
+            {
+                bulletOne.GetComponent<Rigidbody2D>().velocity = new Vector3( Mathf.Floor(shootHor) * bulletSpeed, bulletAngleInRadian * bulletSpeed, 0 );
+                bulletTwo.GetComponent<Rigidbody2D>().velocity = new Vector3( Mathf.Floor(shootHor) * bulletSpeed, -bulletAngleInRadian * bulletSpeed, 0 );
+            }
+            else if (shootHor > 0)
+            {
+                bulletOne.GetComponent<Rigidbody2D>().velocity = new Vector3( Mathf.Ceil(shootHor) * bulletSpeed, bulletAngleInRadian * bulletSpeed, 0 );
+                bulletTwo.GetComponent<Rigidbody2D>().velocity = new Vector3( Mathf.Ceil(shootHor) * bulletSpeed, -bulletAngleInRadian * bulletSpeed, 0 );
+            }            
+            else if (shootVert < 0)
+            {
+                bulletOne.GetComponent<Rigidbody2D>().velocity = new Vector3( bulletAngleInRadian * bulletSpeed, Mathf.Floor(shootVert) * bulletSpeed, 0 );
+                bulletTwo.GetComponent<Rigidbody2D>().velocity = new Vector3( -bulletAngleInRadian * bulletSpeed, Mathf.Floor(shootVert) * bulletSpeed, 0 );
+            }            
+            else if (shootVert > 0)
+            {
+                bulletOne.GetComponent<Rigidbody2D>().velocity = new Vector3(bulletAngleInRadian * bulletSpeed, Mathf.Ceil(shootVert) * bulletSpeed, 0);
+                bulletTwo.GetComponent<Rigidbody2D>().velocity = new Vector3(-bulletAngleInRadian * bulletSpeed, Mathf.Ceil(shootVert) * bulletSpeed, 0);
+            }
+        }
 
 
     }
