@@ -19,12 +19,16 @@ public class PlayerUnitBase : UnitBase
     private Vector2 moveDirection;
     [SerializeField] private Animator animator;
 
+   
     public float acceleration = 8;
     public float decceleration = 24;
     public float velPwr = 0.87f;
     public GameObject bulletPrefab;
     public float bulletSpeed;
     public float fireDelay;
+    public float dashSpeed;
+    public float dashLength = .5f, dashCooldown = 1f;
+
 
     public delegate void OnPlayerPosChangeDelegate(int XVal, int YVal);
     public static event OnPlayerPosChangeDelegate OnPlayerPosChange;
@@ -65,15 +69,14 @@ public class PlayerUnitBase : UnitBase
     private float lastFire;
     private int _posX = 0;
     private int _posY = 0;
+    private float dashCounter;
+    private float dashCoolCounter;
+    private float activeMoveSpeed;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
         
-    }
-
-    private void Awake()
-    {
     }
 
     //good for processing inputs
@@ -91,9 +94,17 @@ public class PlayerUnitBase : UnitBase
 
     void ProcessInputs()
     {
-
+        if (dashCounter <= 0)
+        {
+            activeMoveSpeed = moveSpeed;
+        }
+        
         moveSpeed = GameManager.MoveSpeed;
         fireDelay = GameManager.FireRate;
+
+        dashSpeed = moveSpeed + 20;
+        
+
 
         //strictly gets 0 or 1
         moveX = Input.GetAxisRaw("Horizontal");
@@ -123,6 +134,8 @@ public class PlayerUnitBase : UnitBase
         {
             animator.SetBool("isWalking", false);
         }
+
+        dashMovement();
         
     }
 
@@ -131,7 +144,7 @@ public class PlayerUnitBase : UnitBase
         //rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.fixedDeltaTime, moveDirection.y * moveSpeed * Time.fixedDeltaTime);
 
         //firstly find desired speed to attain
-        Vector2 targetSpeed = new Vector2( moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        Vector2 targetSpeed = new Vector2( moveDirection.x * activeMoveSpeed, moveDirection.y * activeMoveSpeed);
         //find how far we are from the desired speed
         Vector2 speedDif = new Vector2(targetSpeed.x - rb.velocity.x, targetSpeed.y - rb.velocity.y);
         //calculate whether we need to accelerate or decelerate depending on applied input, i.e if we are pushing right or left arrow key and similarly for up and down
@@ -187,8 +200,37 @@ public class PlayerUnitBase : UnitBase
                 bulletTwo.GetComponent<Rigidbody2D>().velocity = new Vector3(-bulletAngleInRadian * bulletSpeed, Mathf.Ceil(shootVert) * bulletSpeed, 0);
             }
         }
+    }
 
+    void dashMovement()
+    {
+        if (GameManager.DashAbility)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (dashCoolCounter <= 0 && dashCounter <= 0)
+                {
+                    Debug.Log("Dash Called");
+                    activeMoveSpeed = dashSpeed;
+                    dashCounter = dashLength;
+                }
+            }
 
+            if (dashCounter > 0)
+            {
+                dashCounter -= Time.deltaTime;
+                if (dashCounter <= 0)
+                {
+                    activeMoveSpeed = moveSpeed;
+                    dashCoolCounter = dashCooldown;
+                }
+            }
+
+            if (dashCoolCounter > 0)
+            {
+                dashCoolCounter -= Time.deltaTime;
+            }
+        }
     }
 
     //convert player transform position to integers along grid for the map

@@ -21,6 +21,7 @@ public class CollectionController : MonoBehaviour
     public float attackSpeedChange;
     public float bulletSizeChange;
     public bool doubleShot;
+    public bool dashAbility;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,8 @@ public class CollectionController : MonoBehaviour
             GameManager.FireRateChange(attackSpeedChange);
             GameManager.BulletSizeChange(bulletSizeChange);
             GameManager.EnableDoubleShot(doubleShot);
+            GameManager.EnableDash(dashAbility);
+            
             Destroy(gameObject);
         }
     }
