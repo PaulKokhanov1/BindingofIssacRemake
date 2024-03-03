@@ -31,6 +31,7 @@ public class EnemyController : MonoBehaviour
     public bool notInRoom = true;
     public Vector2 movementDirection;
     public EnemyHealth _enemyHealth;
+    public Rigidbody2D _rigidbody;
 
 
     private bool chooseDir = false;
@@ -124,8 +125,8 @@ public class EnemyController : MonoBehaviour
             StartCoroutine(ChooseDirection(Pause));
         }
 
-
-        transform.position = new Vector2(transform.position.x + (movementDirection.x * speed * Time.deltaTime), transform.position.y + (movementDirection.y * speed * Time.deltaTime));
+        _rigidbody.velocity = movementDirection * speed;
+        //transform.position = new Vector2(transform.position.x + (movementDirection.x * speed * Time.deltaTime), transform.position.y + (movementDirection.y * speed * Time.deltaTime));
         if (isPlayerInRange(range))
         {
             currState = EnemyState.Follow;
@@ -135,6 +136,7 @@ public class EnemyController : MonoBehaviour
 
     public void Follow()
     {
+        _rigidbody.velocity = Vector3.zero;
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         movementDirection = (player.transform.position - transform.position ).normalized;       //this is to be used in the animator for the enemies
     }
