@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainMenuController : MonoBehaviour
 {
-    float Selection;
+    public float Selection;
 
     [Space(10)]
     [Header("Start")]
@@ -71,6 +71,7 @@ public class MainMenuController : MonoBehaviour
             optionsSelected.SetActive(true);
             QuitSprite.SetActive(true);
             quitSelected.SetActive(false);
+
         }
                 
         if (Selection == 3)

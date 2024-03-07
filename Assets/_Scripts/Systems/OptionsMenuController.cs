@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OptionsMenuController : MonoBehaviour
 {
-    float Selection;
+    public float Selection;
 
     [Space(10)]
     [Header("SFX")]
@@ -31,10 +31,13 @@ public class OptionsMenuController : MonoBehaviour
     public GameObject ONSprite;
     public GameObject OFFSprite;
 
+    private AudioManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
         Selection = 1f;
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
@@ -63,6 +66,7 @@ public class OptionsMenuController : MonoBehaviour
                 Selection = 4f;
             }
         }
+
 
         if (Selection == 1)
         {
@@ -98,6 +102,13 @@ public class OptionsMenuController : MonoBehaviour
             fullscreenSelected.SetActive(true);
             BrightnessSprite.SetActive(true);
             brightnessSelected.SetActive(false);
+
+            //enable fullScreen
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                Screen.fullScreen = !Screen.fullScreen;
+                checkFullScreen();
+            }
         }        
         if (Selection == 4)
         {
@@ -111,5 +122,19 @@ public class OptionsMenuController : MonoBehaviour
             brightnessSelected.SetActive(true);
         }
 
+    }
+
+    void checkFullScreen()
+    {
+        if (Screen.fullScreen)
+        {
+            ONSprite.SetActive(true);
+            OFFSprite.SetActive(false);
+        }
+        else
+        {
+            ONSprite.SetActive(false);
+            OFFSprite.SetActive(true);
+        }
     }
 }
