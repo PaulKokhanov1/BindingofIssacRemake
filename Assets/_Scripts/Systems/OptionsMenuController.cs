@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -51,21 +52,31 @@ public class OptionsMenuController : MonoBehaviour
     public List<GameObject> ONBrightnessBlocks;
 
     private AudioManager audioManager;
-    private Sound s;
+    private Sound music;
+    public List<Sound> sfx = new List<Sound>();
 
     // Start is called before the first frame update
     void Start()
     {
         Selection = 1f;
         audioManager = FindObjectOfType<AudioManager>();
-        s = Array.Find(audioManager.sounds, sound => sound.name == "Background Music");
-        drawBars(ONMusicBlocks, OFFMusicBlocks);
+        //Add all Music sounds HERE
+        music = Array.Find(audioManager.sounds, sound => sound.name == "Background Music");
+        //Add all sfx sounds HERE
+        sfx.Add(Array.Find(audioManager.sounds, sound => sound.name == "Tear Shot"));
+        sfx.Add(Array.Find(audioManager.sounds, sound => sound.name == "Tear Impact"));
+        sfx.Add(Array.Find(audioManager.sounds, sound => sound.name == "Issac Hurt"));
+        sfx.Add(Array.Find(audioManager.sounds, sound => sound.name == "Issac Dies"));
+        sfx.ForEach(go => go.source.volume = 0.6f); //resetting all sfx sounds 
+        drawBars(ONMusicBlocks, OFFMusicBlocks, music);
+        drawBars(ONSFXBlocks, OFFSFXBlocks, sfx[0]);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(s.source.volume);
+        Debug.Log(music.source.volume);
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (Selection <= 4) //3 is the number of buttons we have
@@ -106,13 +117,13 @@ public class OptionsMenuController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 increaseSFX();
-                drawBars(ONSFXBlocks, OFFSFXBlocks);
+                drawBars(ONSFXBlocks, OFFSFXBlocks, sfx[0]);
 
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 decreaseSFX();
-                drawBars(ONSFXBlocks, OFFSFXBlocks);
+                drawBars(ONSFXBlocks, OFFSFXBlocks, sfx[0]);
 
             }
         }
@@ -131,13 +142,13 @@ public class OptionsMenuController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 increaseVolume();
-                drawBars(ONMusicBlocks, OFFMusicBlocks);
+                drawBars(ONMusicBlocks, OFFMusicBlocks, music);
 
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 decreaseVolume();
-                drawBars(ONMusicBlocks, OFFMusicBlocks);
+                drawBars(ONMusicBlocks, OFFMusicBlocks, music);
 
             }
         }
@@ -175,13 +186,13 @@ public class OptionsMenuController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 increaseBrightness();
-                drawBars(ONBrightnessBlocks, OFFBrightnessBlocks);
+                //drawBars(ONBrightnessBlocks, OFFBrightnessBlocks);
 
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 decreaseBrightness();
-                drawBars(ONBrightnessBlocks, OFFBrightnessBlocks);
+                //drawBars(ONBrightnessBlocks, OFFBrightnessBlocks);
 
             }
         }
@@ -204,7 +215,7 @@ public class OptionsMenuController : MonoBehaviour
         }
     }
 
-    void drawBars(List<GameObject> ONBlocks, List<GameObject> OFFBlocks)
+    void drawBars(List<GameObject> ONBlocks, List<GameObject> OFFBlocks, Sound s)
     {
         ONBlocks.ForEach(go => go.SetActive(false));
         OFFBlocks.ForEach(go => go.SetActive(true));
@@ -217,16 +228,16 @@ public class OptionsMenuController : MonoBehaviour
 
     void increaseVolume()
     {
-        float volume = s.source.volume;
+        float volume = music.source.volume;
         if (volume >= 1f)
         {
-            s.source.volume = 1f;
-            s.volume = s.source.volume;
+            music.source.volume = 1f;
+            music.volume = music.source.volume;
         }
         else
         {
-            s.source.volume += 0.2f;
-            s.volume = s.source.volume;
+            music.source.volume += 0.2f;
+            music.volume = music.source.volume;
 
         }
 
@@ -234,16 +245,16 @@ public class OptionsMenuController : MonoBehaviour
     
     void decreaseVolume()
     {
-        float volume = s.source.volume;
+        float volume = music.source.volume;
         if (volume <= 0f)
         {
-            s.source.volume = 0f;
-            s.volume = s.source.volume;
+            music.source.volume = 0f;
+            music.volume = music.source.volume;
         }
         else
         {
-            s.source.volume -= 0.2f;
-            s.volume = s.source.volume;
+            music.source.volume -= 0.2f;
+            music.volume = music.source.volume;
 
         }
 
@@ -261,11 +272,41 @@ public class OptionsMenuController : MonoBehaviour
 
     private void increaseSFX()
     {
-        throw new NotImplementedException();
+        FindObjectOfType<AudioManager>().Play("Tear Shot");
+        float volume = sfx[0].source.volume;    //assuming all sfx sounds will start at the same volume
+        if (volume >= 1f)
+        {
+            sfx.ForEach(go => {
+                go.source.volume = 1f;
+                go.volume = go.source.volume;
+            }) ;
+        }
+        else
+        {
+            sfx.ForEach(go => {
+                go.source.volume += 0.2f;
+                go.volume = go.source.volume;
+            });
+        }
     }
 
     private void decreaseSFX()
     {
-        throw new NotImplementedException();
+        FindObjectOfType<AudioManager>().Play("Tear Shot");
+        float volume = sfx[0].source.volume;    //assuming all sfx sounds will start at the same volume
+        if (volume <= 0f)
+        {
+            sfx.ForEach(go => {
+                go.source.volume = 0f;
+                go.volume = go.source.volume;
+            });
+        }
+        else
+        {
+            sfx.ForEach(go => {
+                go.source.volume -= 0.2f;
+                go.volume = go.source.volume;
+            });
+        }
     }
 }

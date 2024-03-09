@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class MainMenuController : MonoBehaviour
             }
         }
 
+        //Play
         if (Selection == 1)
         {
             StartSprite.SetActive(false);
@@ -61,8 +63,13 @@ public class MainMenuController : MonoBehaviour
             optionsSelected.SetActive(false);            
             QuitSprite.SetActive(true);
             quitSelected.SetActive(false);
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                PlayGame();
+            }
         }
                 
+        //Options
         if (Selection == 2)
         {
             StartSprite.SetActive(true);
@@ -72,8 +79,10 @@ public class MainMenuController : MonoBehaviour
             QuitSprite.SetActive(true);
             quitSelected.SetActive(false);
 
+
         }
                 
+        //Quit
         if (Selection == 3)
         {
             StartSprite.SetActive(true);
@@ -82,7 +91,22 @@ public class MainMenuController : MonoBehaviour
             optionsSelected.SetActive(false);
             QuitSprite.SetActive(false);
             quitSelected.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                QuitGame();
+            }
         }
 
+    }
+
+    public void PlayGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

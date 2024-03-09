@@ -11,6 +11,7 @@ public class BulletController : MonoBehaviour
     {
         StartCoroutine(DeathDelay());
         transform.localScale = new Vector2(GameManager.BulletSize, GameManager.BulletSize);
+        FindObjectOfType<AudioManager>().Play("Tear Shot");
     }
 
     // Update is called once per frame
@@ -39,5 +40,6 @@ public class BulletController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        FindObjectOfType<AudioManager>().Play("Tear Impact");
     }
 }

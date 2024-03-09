@@ -223,7 +223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &41775506
 Transform:
   m_ObjectHideFlags: 0
@@ -467,6 +467,33 @@ MonoBehaviour:
   brightnessSelected: {fileID: 744671136}
   ONSprite: {fileID: 27344593}
   OFFSprite: {fileID: 541260307}
+  OFFSFXBlocks:
+  - {fileID: 1039954560}
+  - {fileID: 1541479795}
+  - {fileID: 1121895144}
+  - {fileID: 1558060993}
+  - {fileID: 1577521024}
+  ONSFXBlocks:
+  - {fileID: 1718610209}
+  - {fileID: 1381603578}
+  - {fileID: 1285146689}
+  - {fileID: 134613718}
+  - {fileID: 1569534441}
+  OFFMusicBlocks:
+  - {fileID: 459005967}
+  - {fileID: 984477280}
+  - {fileID: 1396042862}
+  - {fileID: 684868241}
+  - {fileID: 639696612}
+  ONMusicBlocks:
+  - {fileID: 41775505}
+  - {fileID: 1856153554}
+  - {fileID: 1369173237}
+  - {fileID: 2026604124}
+  - {fileID: 1823477887}
+  OFFBrightnessBlocks: []
+  ONBrightnessBlocks: []
+  sfx: []
 --- !u!1 &134613718
 GameObject:
   m_ObjectHideFlags: 0
@@ -3253,7 +3280,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1369173238
 Transform:
   m_ObjectHideFlags: 0
@@ -4382,7 +4409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1823477888
 Transform:
   m_ObjectHideFlags: 0
@@ -4600,7 +4627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1856153555
 Transform:
   m_ObjectHideFlags: 0
@@ -4885,7 +4912,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2026604125
 Transform:
   m_ObjectHideFlags: 0
@@ -5340,6 +5367,78 @@ PrefabInstance:
     - target: {fileID: 6380365138360175186, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9f33ee3ecaa854e4c9766c3f6f26b6e5, type: 3}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[1].name
+      value: Tear Shot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: b11c5869e273c804a9fa48258be07160, type: 3}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[2].name
+      value: Tear Impact
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: de9637cdcecab50479ac16a40a9dcccb, type: 3}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[3].name
+      value: Issac Hurt
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5cdd5c04f99d6d94f83ab53747443fa6, type: 3}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[4].name
+      value: Issac Dies
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[1].pitch
+      value: 1.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[2].pitch
+      value: 1.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[3].pitch
+      value: 1.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[4].pitch
+      value: 1.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[0].volume
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[1].volume
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[2].volume
+      value: 0.771
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[3].volume
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[4].volume
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
