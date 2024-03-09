@@ -65,6 +65,7 @@ public class MainMenuController : MonoBehaviour
             quitSelected.SetActive(false);
             if (Input.GetKeyDown(KeyCode.Return))
             {
+                Time.timeScale = 1f;
                 PlayGame();
             }
         }
@@ -102,6 +103,11 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayGame()
     {
+        if(GameManager.instance != null)
+        {
+            Destroy(GameManager.instance.gameObject);
+        }
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

@@ -29,7 +29,7 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("contact");
+        //Debug.Log("contact");
         if(collision.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyController>().DamageEnemy(1);

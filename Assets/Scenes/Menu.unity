@@ -491,8 +491,18 @@ MonoBehaviour:
   - {fileID: 1369173237}
   - {fileID: 2026604124}
   - {fileID: 1823477887}
-  OFFBrightnessBlocks: []
-  ONBrightnessBlocks: []
+  OFFBrightnessBlocks:
+  - {fileID: 1310518460}
+  - {fileID: 1594457281}
+  - {fileID: 985005326}
+  - {fileID: 1499316693}
+  - {fileID: 1908152083}
+  ONBrightnessBlocks:
+  - {fileID: 1512570838}
+  - {fileID: 166550732}
+  - {fileID: 943849840}
+  - {fileID: 2032812882}
+  - {fileID: 2101726092}
   sfx: []
 --- !u!1 &134613718
 GameObject:
@@ -5385,6 +5395,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: b11c5869e273c804a9fa48258be07160, type: 3}
     - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
+      propertyPath: sounds.Array.data[2].loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
       propertyPath: sounds.Array.data[2].name
       value: Tear Impact
       objectReference: {fileID: 0}
@@ -5430,7 +5444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
       propertyPath: sounds.Array.data[2].volume
-      value: 0.771
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8370406602011417790, guid: f223536f5e4b228438d5e0ee2aa0a760, type: 3}
       propertyPath: sounds.Array.data[3].volume

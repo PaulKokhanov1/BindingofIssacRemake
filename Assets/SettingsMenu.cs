@@ -8,9 +8,10 @@ public class SettingsMenu : MonoBehaviour
     public GameObject mainMenu;
     public GameObject optionsMenu;
 
+
     private MainMenuController mainMenuController;
     private OptionsMenuController optionsMenuController;
-    // Start is called before the first frame update
+
     void Start()
     {
         mainMenuController = GetComponentInChildren<MainMenuController>();
@@ -28,6 +29,11 @@ public class SettingsMenu : MonoBehaviour
                 mainMenu.SetActive(false);
                 optionsMenu.SetActive(true);
             }
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            mainMenu.SetActive(true);
+            optionsMenu.SetActive(false);
         }
 
 

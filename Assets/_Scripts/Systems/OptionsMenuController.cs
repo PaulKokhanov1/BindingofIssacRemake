@@ -76,7 +76,8 @@ public class OptionsMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(music.source.volume);
+
+
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (Selection <= 4) //3 is the number of buttons we have
