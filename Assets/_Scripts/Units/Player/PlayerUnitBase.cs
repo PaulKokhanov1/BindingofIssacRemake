@@ -43,7 +43,7 @@ public class PlayerUnitBase : UnitBase
             if (OnPlayerPosChange != null)
             {
                 OnPlayerPosChange(_posX, _posY);
-                //Debug.Log("Player position Changed: " + "posX: " + _posX + " posY: "+ _posY);
+                Debug.Log("Player position Changed: " + "posX: " + _posX + " posY: "+ _posY);
             }
                 
         }

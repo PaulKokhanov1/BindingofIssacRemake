@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
         
     }
 
+    private void Start()
+    {
+        Debug.Log("GAME MANAGER START CALLED");
+    }
+
     // Update is called once per frame
     void Update()
     {

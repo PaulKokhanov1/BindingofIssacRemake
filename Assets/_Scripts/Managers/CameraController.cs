@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
 
     private PlayerUnitBase player;
     public float moveSpeedWhenRoomChange;
+    public Vector3 currentCameraPosition;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class CameraController : MonoBehaviour
         {
             Vector3 targetPos = new Vector3(player.posX * DungeonGenerator_three.instance.offset.x, player.posY * DungeonGenerator_three.instance.offset.y, -10);
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeedWhenRoomChange);
+            currentCameraPosition = transform.position;
         }
 
     }

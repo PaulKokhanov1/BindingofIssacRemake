@@ -9,6 +9,21 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+    public List<GameObject> textSprites;
+
+    private PauseMenuController pauseMenuController;
+    private CameraController cameraController;
+
+
+    private void Start()
+    {
+        cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
+        pauseMenuController = GetComponentInChildren<PauseMenuController>();
+/*        textSprites.ForEach(sprite =>
+        {
+            sprite.transform.position = Vector2.zero;
+        });*/
+    }
 
     // Update is called once per frame
     void Update()
@@ -30,6 +45,11 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
+        textSprites.ForEach(sprite =>
+        {
+            Debug.Log(cameraController.currentCameraPosition);
+            sprite.transform.position = new Vector2(cameraController.currentCameraPosition.x, cameraController.currentCameraPosition.y);
+        });
     }
 
     public void Resume()

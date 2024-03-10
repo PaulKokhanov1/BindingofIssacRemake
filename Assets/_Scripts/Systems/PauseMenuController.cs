@@ -3,28 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenuController : MonoBehaviour
+public class PauseMenuController : MonoBehaviour
 {
     public float Selection;
 
     [Space(10)]
-    [Header("Start")]
-    public GameObject StartSprite;
-    public GameObject startSelected;    
+    [Header("Resume")]
+    public GameObject ResumeSprite;
+    public GameObject resumeSelected;    
     
     [Space(10)]
-    [Header("Options")]
-    public GameObject OptionsSprite;
-    public GameObject optionsSelected;    
+    [Header("Menu")]
+    public GameObject MenuSprite;
+    public GameObject menuSelected;    
     
     [Space(10)]
     [Header("Quit")]
     public GameObject QuitSprite;
     public GameObject quitSelected;
+
+    private PauseMenu pauseMenu;
     // Start is called before the first frame update
     void Start()
     {
         Selection = 1f;
+        pauseMenu = GetComponentInParent<PauseMenu>();
     }
 
     // Update is called once per frame
@@ -57,62 +60,50 @@ public class MainMenuController : MonoBehaviour
         //Play
         if (Selection == 1)
         {
-            StartSprite.SetActive(false);
-            startSelected.SetActive(true);
-            OptionsSprite.SetActive(true);
-            optionsSelected.SetActive(false);            
+            ResumeSprite.SetActive(false);
+            resumeSelected.SetActive(true);
+            MenuSprite.SetActive(true);
+            menuSelected.SetActive(false);            
             QuitSprite.SetActive(true);
             quitSelected.SetActive(false);
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                Time.timeScale = 1f;
-                PlayGame();
+                pauseMenu.Resume();
             }
         }
                 
-        //Options
+        //Menu
         if (Selection == 2)
         {
-            StartSprite.SetActive(true);
-            startSelected.SetActive(false);
-            OptionsSprite.SetActive(false);
-            optionsSelected.SetActive(true);
+            ResumeSprite.SetActive(true);
+            resumeSelected.SetActive(false);
+            MenuSprite.SetActive(false);
+            menuSelected.SetActive(true);
             QuitSprite.SetActive(true);
             quitSelected.SetActive(false);
-
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                pauseMenu.LoadMenu();
+            }
 
         }
                 
         //Quit
         if (Selection == 3)
         {
-            StartSprite.SetActive(true);
-            startSelected.SetActive(false);
-            OptionsSprite.SetActive(true);
-            optionsSelected.SetActive(false);
+            ResumeSprite.SetActive(true);
+            resumeSelected.SetActive(false);
+            MenuSprite.SetActive(true);
+            menuSelected.SetActive(false);
             QuitSprite.SetActive(false);
             quitSelected.SetActive(true);
 
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                QuitGame();
+                pauseMenu.QuitGame();
             }
         }
 
     }
 
-    public void PlayGame()
-    {
-/*        if(GameManager.instance != null)
-        {
-            Destroy(GameManager.instance.gameObject);
-        }*/
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
 }
