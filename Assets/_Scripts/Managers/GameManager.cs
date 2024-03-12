@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance { get; private set; }
 
-
+    
     private static float health = 6;
     private static float maxHealth = 6;
     private static float moveSpeed = 40f;
@@ -48,7 +48,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("GAME MANAGER START CALLED");
+        health = 6;
+        maxHealth = 6;
+        moveSpeed = 40f;
+        fireRate = 0.5f;
+        bulletSize = 1f;
+        doubleShot = false;
+        dashAbility = false;
+        Debug.Log("Player Health: " + health);
     }
 
     // Update is called once per frame

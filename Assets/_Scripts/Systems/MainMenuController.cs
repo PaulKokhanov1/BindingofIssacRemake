@@ -103,11 +103,7 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayGame()
     {
-/*        if(GameManager.instance != null)
-        {
-            Destroy(GameManager.instance.gameObject);
-        }*/
-        
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

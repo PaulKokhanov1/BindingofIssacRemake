@@ -28,8 +28,8 @@ public class CollectionController : MonoBehaviour
     {
         GetComponent<SpriteRenderer>().sprite = item.itemImage;
         Destroy(GetComponent<PolygonCollider2D>()); //need to do this to make sure our polygoncollider is updated to fit the itemImage sprite
-        gameObject.AddComponent<PolygonCollider2D>();
-        gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
+        gameObject.AddComponent<BoxCollider2D>();
+        gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
     }
 
 

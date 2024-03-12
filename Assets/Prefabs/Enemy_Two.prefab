@@ -172,7 +172,9 @@ MonoBehaviour:
   attackRange: 1
   cooldown: 2
   health: 1
+  notInRoom: 1
   movementDirection: {x: 0, y: 0}
+  _rigidbody: {fileID: 4675006210467949657}
 --- !u!61 &5632212505553890817
 BoxCollider2D:
   m_ObjectHideFlags: 0

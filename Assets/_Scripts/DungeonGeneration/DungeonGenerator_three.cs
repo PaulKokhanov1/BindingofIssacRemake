@@ -84,7 +84,7 @@ public class DungeonGenerator_three : MonoBehaviour
                 break;
             }
         }
-
+        
         var random = new System.Random();
         idx = random.Next(deadEnds.Count);
         int treasureroom = deadEnds[idx];
@@ -99,6 +99,8 @@ public class DungeonGenerator_three : MonoBehaviour
             }
         }
         Debug.Log(treasureroom);
+
+        RoomBehaviour curRoom = null;
 
 
         //go through all rows and columns of the board
@@ -128,6 +130,10 @@ public class DungeonGenerator_three : MonoBehaviour
                     {
                         newRoom = Instantiate(room, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
                         newRoom.UpdateRoom(currentCell.status, currentCell.statusBoss, currentCell.statusTreasure);
+                        if(i == 5 && j == 4) //edge case for starting room, since player always starts at same room position
+                        {
+                            curRoom = newRoom;
+                        }
                     }
 
                     newRoom.name += " " + i + "-" + j;
@@ -138,6 +144,8 @@ public class DungeonGenerator_three : MonoBehaviour
             }
         }
 
+        //doing this to hopefully instantiate the doors closign once dungeon is generated but not sure if it is necessary
+        curRoom.OnPlayerEnterRoom(5, 4);
         //StartCoroutine(gridController.waitForDungeonGeneraton());
     }
 

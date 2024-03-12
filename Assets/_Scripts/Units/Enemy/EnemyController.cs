@@ -102,27 +102,27 @@ public class EnemyController : MonoBehaviour
     /// </summary>
     private bool isPlayerInRange(float range)
     {
-        return Vector3.Distance(transform.position, player.transform.position) <= range;
+        if (player !=  null)
+        {
+            return Vector3.Distance(transform.position, player.transform.position) <= range;
+        } else { return false; }
+        
     }
 
-    private IEnumerator ChooseDirection(bool Pause = true)
+    private IEnumerator ChooseDirection()
     {
         chooseDir = true;
-        if (Pause)
-        {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 4f));
-
-        }
+        yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 4f));
         movementDirection = new Vector2(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)).normalized;
 
         chooseDir = false;      //allows us to essentially keep looping over this coroutine
     }
 
-    public void Wander(bool Pause = true)
+    public void Wander()
     {
         if (!chooseDir)
         {
-            StartCoroutine(ChooseDirection(Pause));
+            StartCoroutine(ChooseDirection());
         }
 
         _rigidbody.velocity = movementDirection * speed;

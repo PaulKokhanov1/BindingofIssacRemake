@@ -19,10 +19,6 @@ public class PauseMenu : MonoBehaviour
     {
         cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         pauseMenuController = GetComponentInChildren<PauseMenuController>();
-/*        textSprites.ForEach(sprite =>
-        {
-            sprite.transform.position = Vector2.zero;
-        });*/
     }
 
     // Update is called once per frame
@@ -47,7 +43,6 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = true;
         textSprites.ForEach(sprite =>
         {
-            Debug.Log(cameraController.currentCameraPosition);
             sprite.transform.position = new Vector2(cameraController.currentCameraPosition.x, cameraController.currentCameraPosition.y);
         });
     }

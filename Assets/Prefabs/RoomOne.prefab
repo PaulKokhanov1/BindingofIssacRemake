@@ -2377,6 +2377,8 @@ MonoBehaviour:
   spawnerData:
   - name: BoneyEnemy
     spawnerData: {fileID: 11400000, guid: 0354e42544fa85c43af125a4a7aab706, type: 2}
+  - name: FlyEnemy
+    spawnerData: {fileID: 11400000, guid: c02770c969fd45c478480ad6989f5412, type: 2}
 --- !u!1 &748266267460171536
 GameObject:
   m_ObjectHideFlags: 0

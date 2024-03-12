@@ -78,21 +78,24 @@ public class RoomBehaviour : MonoBehaviour
             
         }
     }
-    private void UpdateCurrentRooms()
+    public void UpdateCurrentRooms()
     {
         EnemyController[] enemies = GetComponentsInChildren<EnemyController>();
         if (enemies != null)
         {
             foreach(EnemyController enemy in enemies)
             {
+                
                 enemy.notInRoom = false;
                 enemy.currState = EnemyState.Wander;
-                enemy.Wander(false);
+                Debug.Log("enemy current state: " + enemy.currState);
+
+                enemy.Wander();
             }
         }
     }
 
-    private void closeCurrentRoomDoors()
+    public void closeCurrentRoomDoors()
     {
         for (int i = 0; i < doors.Length; i++)
         { 
