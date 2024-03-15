@@ -36,6 +36,12 @@ public class BulletController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (collision.tag == "Boss")
+        {
+            collision.gameObject.GetComponent<BossController>().DamageEnemy(1);
+            Destroy(gameObject);
+        }
+
         if (collision.tag == "Walls")
         {
             Destroy(gameObject);
