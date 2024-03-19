@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cd4acf6125b3dc41b6d279b4c647577, type: 3}
-  m_Name: FlyEnemy
+  m_Name: HorfEnemy
   m_EditorClassIdentifier: 
-  itemToSpawn: {fileID: 8985385895479678602, guid: f09d4d207d79a194cb08e49244f436db, type: 3}
+  itemToSpawn: {fileID: 5215311847665633837, guid: c7efb8ca37571a447a4e589d56242338, type: 3}
   minSpawn: 0
   maxSpawn: 0

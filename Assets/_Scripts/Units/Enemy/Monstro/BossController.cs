@@ -25,11 +25,13 @@ public class BossController : MonoBehaviour
     public float speed; //how fast enemy moves
     public float attackRange;
     public float cooldown;
+    public float bulletSpeed;
     public int health;
     public int damage;
-    public bool notInRoom = false; //CHANGED THIS BACK TO TRUE WHEN U IMPLEMENT BOSS SPAWNING IN BOSS ROOM, ALSO CHANGE IN INSPECTOR
+    public bool notInRoom = true; //CHANGED THIS BACK TO TRUE WHEN U IMPLEMENT BOSS SPAWNING IN BOSS ROOM, ALSO CHANGE IN INSPECTOR
     public int lookingDirection;
     public EnemyHealth _bossHealth;
+    public GameObject bulletPrefab;
 
 
     private bool dead = false;
@@ -44,6 +46,7 @@ public class BossController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         _bossHealth = new EnemyHealth(health, health);
+        healthBar = GameObject.FindGameObjectWithTag("BossHealth").GetComponentInChildren<Slider>();
 
     }
 
@@ -98,8 +101,22 @@ public class BossController : MonoBehaviour
         healthBar.value = _bossHealth.Health;
     }
 
-    private void Shoot()
+    public void Shoot()
     {
+        if (!coolDownAttack)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity) as GameObject;
+                bullet.GetComponent<BulletController>().GetPlayer(player.transform);
+                bullet.AddComponent<Rigidbody2D>().gravityScale = 0;
+                bullet.GetComponent<BulletController>().isEnemyBullet = true;
+                bullet.GetComponent<BulletController>().isBossBullet = true;
+                bullet.GetComponent<BulletController>().bulletSpeed = bulletSpeed;
+            }
+            StartCoroutine(CoolDown());
+        }
+
     }
 
     public void Idle()
@@ -145,7 +162,7 @@ public class BossController : MonoBehaviour
     public void Death()
     {
         Debug.Log("Called Death");
-        //gameObject.GetComponentInParent<RoomBehaviour>().checkEnemiesInRoom();
+        gameObject.GetComponentInParent<RoomBehaviour>().checkEnemiesInRoom();
         Destroy(healthBar);
         Destroy(gameObject);
 

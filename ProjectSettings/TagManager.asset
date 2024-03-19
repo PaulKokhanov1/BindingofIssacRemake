@@ -12,6 +12,7 @@ TagManager:
   - MainMenu
   - OptionsMenu
   - Boss
+  - BossHealth
   layers:
   - Default
   - TransparentFX

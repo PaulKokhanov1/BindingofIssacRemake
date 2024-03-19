@@ -62,6 +62,7 @@ public class RoomBehaviour : MonoBehaviour
     public void OnPlayerEnterRoom(int playerPosX, int playerPosY)
     {
         Debug.Log("OnplaerEnterRoom called");
+        Debug.Log("Xpos, YPos: " + Xpos+ " " + Ypos + " Player Pos: " + playerPosX + " " + playerPosY);
         if (Mathf.Abs(playerPosX) == Xpos && Mathf.Abs(playerPosY) == Ypos)
         {
             //player is in this instance of the rooms
@@ -71,7 +72,8 @@ public class RoomBehaviour : MonoBehaviour
             UpdateCurrentRooms();
 
             EnemyController[] enemies = GetComponentsInChildren<EnemyController>();
-            if (enemies.Length > 0)
+            BossController[] bosses = GetComponentsInChildren<BossController>();
+            if (enemies.Length > 0 || bosses.Length >0)
             {
                 StartCoroutine(CountdownToCloseRooms());
             }
@@ -81,7 +83,11 @@ public class RoomBehaviour : MonoBehaviour
     public void UpdateCurrentRooms()
     {
         EnemyController[] enemies = GetComponentsInChildren<EnemyController>();
-        if (enemies != null)
+        BossController[] bosses = GetComponentsInChildren<BossController>();
+        Debug.Log(bosses.Length);
+        Debug.Log(enemies.Length);
+
+        if (enemies != null || bosses != null)
         {
             foreach(EnemyController enemy in enemies)
             {
@@ -92,7 +98,13 @@ public class RoomBehaviour : MonoBehaviour
 
                 enemy.Wander();
             }
-        }
+            foreach (BossController boss in bosses)
+            {
+                Debug.Log("Boss not in room changed");
+                boss.notInRoom = false;
+                boss.currState = BossState.Idle;
+            }
+        } 
     }
 
     public void closeCurrentRoomDoors()
@@ -110,8 +122,10 @@ public class RoomBehaviour : MonoBehaviour
     public void checkEnemiesInRoom()
     {
         EnemyController[] enemies = GetComponentsInChildren<EnemyController>();
+        BossController[] bosses = GetComponentsInChildren<BossController>();
+
         Debug.Log(enemies.Length);
-        if (enemies.Length == 1)
+        if (enemies.Length == 1 || bosses.Length == 1 && enemies.Length == 0)
         {
             Debug.Log("Open doors called");
             openAllDoors();

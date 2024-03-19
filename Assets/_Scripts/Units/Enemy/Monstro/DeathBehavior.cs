@@ -10,6 +10,8 @@ public class DeathBehavior : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossController = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossController>();
+        bossController.currState = BossState.Idle; //since I need to make sure boss doesn't move
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
