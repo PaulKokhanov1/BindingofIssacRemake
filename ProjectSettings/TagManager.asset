@@ -13,6 +13,8 @@ TagManager:
   - OptionsMenu
   - Boss
   - BossHealth
+  - TrapDoor
+  - BossRock
   layers:
   - Default
   - TransparentFX

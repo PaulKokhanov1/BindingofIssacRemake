@@ -2305,6 +2305,8 @@ MonoBehaviour:
   - {fileID: 748266267460171536}
   - {fileID: 8748669579312304894}
   doorColliders: []
+  trapDoor: {fileID: 0}
+  bossRock: {fileID: 0}
   Xpos: 0
   Ypos: 0
 --- !u!60 &1957154635551192567

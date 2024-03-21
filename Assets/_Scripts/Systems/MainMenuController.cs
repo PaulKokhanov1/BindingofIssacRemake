@@ -65,6 +65,7 @@ public class MainMenuController : MonoBehaviour
             quitSelected.SetActive(false);
             if (Input.GetKeyDown(KeyCode.Return))
             {
+                AudioManager.instance.newGame = true;
                 Time.timeScale = 1f;
                 PlayGame();
             }

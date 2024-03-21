@@ -47,6 +47,7 @@ public class BossController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         _bossHealth = new EnemyHealth(health, health);
         healthBar = GameObject.FindGameObjectWithTag("BossHealth").GetComponentInChildren<Slider>();
+        healthBar.gameObject.SetActive(false);
 
     }
 

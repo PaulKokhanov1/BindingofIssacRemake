@@ -48,21 +48,21 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        health = 6;
-        maxHealth = 6;
-        moveSpeed = 40f;
-        fireRate = 0.5f;
-        bulletSize = 1f;
-        doubleShot = false;
-        dashAbility = false;
-        Debug.Log("Player Health: " + health);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        if (AudioManager.instance.newGame)
+        {
+            health = 6;
+            maxHealth = 6;
+            moveSpeed = 40f;
+            fireRate = 0.5f;
+            bulletSize = 1f;
+            doubleShot = false;
+            dashAbility = false;
+            Debug.Log("Player Health: " + health);
+        }
 
     }
+
+
 
     public static void DamagePlayer(int damage)
     {

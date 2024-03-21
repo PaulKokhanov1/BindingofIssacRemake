@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
 {
 
     public Sound[] sounds;
+    public bool newGame = true;
 
     public static AudioManager instance;
 

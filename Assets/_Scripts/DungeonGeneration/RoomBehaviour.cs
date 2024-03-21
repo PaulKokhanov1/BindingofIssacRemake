@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomBehaviour : MonoBehaviour
@@ -12,6 +13,9 @@ public class RoomBehaviour : MonoBehaviour
     public GameObject[] doorsBoss;
     public GameObject[] doorsTreasure;
     public GameObject[] doorColliders;
+    public GameObject trapDoor;
+    public GameObject bossRock;
+    public GameObject itemSpawner;
 
     public int Xpos, Ypos;
 
@@ -59,6 +63,23 @@ public class RoomBehaviour : MonoBehaviour
         }
     }
 
+    public void openEnding()
+    {
+        if(trapDoor != null)
+        {
+            trapDoor.SetActive(true);
+        }
+        if (bossRock != null)
+        {
+            bossRock.SetActive(true);
+        }        
+        if (itemSpawner != null)
+        {
+            itemSpawner.SetActive(true);
+        }
+
+    }
+
     public void OnPlayerEnterRoom(int playerPosX, int playerPosY)
     {
         Debug.Log("OnplaerEnterRoom called");
@@ -76,6 +97,11 @@ public class RoomBehaviour : MonoBehaviour
             if (enemies.Length > 0 || bosses.Length >0)
             {
                 StartCoroutine(CountdownToCloseRooms());
+
+                foreach (BossController boss in bosses)
+                {
+                    boss.healthBar.gameObject.SetActive(true);
+                }
             }
             
         }
@@ -101,6 +127,7 @@ public class RoomBehaviour : MonoBehaviour
             foreach (BossController boss in bosses)
             {
                 Debug.Log("Boss not in room changed");
+                
                 boss.notInRoom = false;
                 boss.currState = BossState.Idle;
             }

@@ -5,6 +5,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 
 //used for logic regarding Player Specific elements, like movement & shooting
@@ -242,5 +243,15 @@ public class PlayerUnitBase : UnitBase
 /*        Debug.Log(posX);
         Debug.Log(posY);*/
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.tag == "TrapDoor")
+        {
+            AudioManager.instance.newGame = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }

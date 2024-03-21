@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class DeathBehavior : StateMachineBehaviour
 {
-
+    public GameObject boss;
     public BossController bossController;
+    RoomBehaviour roomBehaviour;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        bossController = GameObject.FindGameObjectWithTag("Boss").GetComponent<BossController>();
+        boss = GameObject.FindGameObjectWithTag("Boss");
+        bossController = boss.GetComponent<BossController>();
+        roomBehaviour = boss.GetComponentInParent<RoomBehaviour>();
         bossController.currState = BossState.Idle; //since I need to make sure boss doesn't move
 
     }
@@ -24,6 +27,7 @@ public class DeathBehavior : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossController.currState = BossState.Die;
+        roomBehaviour.openEnding();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
