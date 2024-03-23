@@ -76,7 +76,7 @@ public class BulletController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.tag == "Player" && isEnemyBullet)
+        if (collision.tag == "Player" && isEnemyBullet || collision.tag == "HitBox" && isEnemyBullet)
         {
             GameManager.DamagePlayer(1);
             Destroy(gameObject);

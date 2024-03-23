@@ -170,7 +170,7 @@ public class RoomBehaviour : MonoBehaviour
     public IEnumerator CountdownToCloseRooms()
     {
         Debug.Log("Timer Started");
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         Debug.Log("Timer Ended");
 
         closeCurrentRoomDoors();

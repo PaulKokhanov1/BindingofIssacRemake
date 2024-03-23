@@ -17,6 +17,7 @@ TagManager:
   - BossRock
   - Issac
   - Test
+  - HitBox
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - Map
   - Bullet
   - Boss
-  - 
+  - PlayerHitbox
   - 
   - 
   - 
