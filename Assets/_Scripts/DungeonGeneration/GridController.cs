@@ -32,10 +32,14 @@ public class GridController : MonoBehaviour
         
         float roomHeight = Mathf.Abs(roomPolygonCollider.points[0].y) + Mathf.Abs(roomPolygonCollider.points[1].y);
 
-        grid.columns = Mathf.FloorToInt(roomWidth - 1f);
+        grid.columns = Mathf.FloorToInt(roomWidth - 2f);
         grid.rows = Mathf.FloorToInt(roomHeight - 1f);
-
-        GenerateGrid();
+        Debug.Log("Xpos, YPos: " + room.GetComponent<RoomBehaviour>().Xpos + " " + room.GetComponent<RoomBehaviour>().Ypos);
+        if (room.GetComponent<RoomBehaviour>().Xpos != 5 && room.GetComponent<RoomBehaviour>().Ypos != 4)
+        {
+            GenerateGrid();
+        }
+        
 
     }
 

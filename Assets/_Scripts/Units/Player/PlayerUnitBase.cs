@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -18,7 +19,7 @@ public class PlayerUnitBase : UnitBase
     float bulletAngle = 45f;
     public Rigidbody2D rb;
     private Vector2 moveDirection;
-    [SerializeField] private Animator animator;
+    [SerializeField] public Animator animator;
 
    
     public float acceleration = 8;
@@ -29,6 +30,8 @@ public class PlayerUnitBase : UnitBase
     public float fireDelay;
     public float dashSpeed;
     public float dashLength = .5f, dashCooldown = 1f;
+    public bool isDead = false;
+
 
 
     public delegate void OnPlayerPosChangeDelegate(int XVal, int YVal);
@@ -83,14 +86,33 @@ public class PlayerUnitBase : UnitBase
     //good for processing inputs
     void Update()
     {
-        ProcessInputs();
-        playerPosition();
+        if (!isDead)
+        {
+            ProcessInputs();
+            playerPosition();
+        }
+
+
+        if (GameManager.Health <= 0)
+        {
+            animator.SetTrigger("Death");
+            isDead = true;
+        }
     }
 
     //best to be used for physics calculations
     private void FixedUpdate()
     {
-        Move();
+        if (!isDead)
+        {
+            Move();
+        }
+
+    }
+    
+    public void deathSequence()
+    {
+        LevelChanger.Instance.FadeToLevel(0);
     }
 
     void ProcessInputs()

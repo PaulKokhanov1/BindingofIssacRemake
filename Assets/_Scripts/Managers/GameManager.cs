@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
     public static event Action OnPlayerMaxHealthChanged;
 
 
+    GameObject player;
+    PlayerUnitBase playerUnit;
+
 
     //Note by default if privacy level not specified, it automatically is private
     void Awake()
@@ -60,15 +63,23 @@ public class GameManager : MonoBehaviour
             Debug.Log("Player Health: " + health);
         }
 
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerUnit = player.GetComponent<PlayerUnitBase>();
+
     }
 
 
 
     public static void DamagePlayer(int damage)
     {
-        health -= damage;
-        OnPlayerDamaged?.Invoke();  //null check and invoking the action
-        FindObjectOfType<AudioManager>().Play("Issac Hurt");
+        if (health > 0)
+        {
+            health -= damage;
+            OnPlayerDamaged?.Invoke();  //null check and invoking the action
+            FindObjectOfType<AudioManager>().Play("Issac Hurt");
+
+        }
+
 
 
         if (health <= 0)

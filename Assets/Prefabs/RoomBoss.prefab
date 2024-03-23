@@ -2814,6 +2814,7 @@ MonoBehaviour:
   spawnerData:
   - name: Monstro
     spawnerData: {fileID: 11400000, guid: e02c8fad72a7a3e4d8b2858190a4ee32, type: 2}
+  rock: {fileID: 0}
 --- !u!1 &762257049471767308
 GameObject:
   m_ObjectHideFlags: 0
@@ -4815,7 +4816,7 @@ MonoBehaviour:
     columns: 0
     rows: 0
     verticalOffset: 4
-    horizontalOffset: 8
+    horizontalOffset: 7.5
   gridTile: {fileID: 1924785420113368523, guid: 73160413b80204144ab8369016ee3c99, type: 3}
   avaliablePoints: []
 --- !u!1 &3113234337572142243

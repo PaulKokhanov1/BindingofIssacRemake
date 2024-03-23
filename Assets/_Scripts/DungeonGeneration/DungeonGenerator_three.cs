@@ -23,6 +23,7 @@ public class DungeonGenerator_three : MonoBehaviour
     public Vector2 size; // the size of the grid
     private int startPos = 45; //start position of dungeon, always keeping grid at 10*10 
     public GameObject room;
+    public GameObject roomStart;
     public GameObject roomBoss;
     public GameObject roomTreasure;
     public GameObject player;
@@ -126,14 +127,16 @@ public class DungeonGenerator_three : MonoBehaviour
                         newRoom = Instantiate(roomTreasure, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
                         newRoom.UpdateRoom(currentCell.status, currentCell.statusBoss, currentCell.statusTreasure);
                     }
+                    else if(i == 5 && j == 4) //starting room
+                    {
+                        newRoom = Instantiate(roomStart, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
+                        newRoom.UpdateRoom(currentCell.status, currentCell.statusBoss, currentCell.statusTreasure);
+                        curRoom = newRoom;
+                    }
                     else
                     {
                         newRoom = Instantiate(room, new Vector3(i * offset.x, -j * offset.y, 0), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
                         newRoom.UpdateRoom(currentCell.status, currentCell.statusBoss, currentCell.statusTreasure);
-                        if(i == 5 && j == 4) //edge case for starting room, since player always starts at same room position
-                        {
-                            curRoom = newRoom;
-                        }
                     }
 
                     newRoom.name += " " + i + "-" + j;

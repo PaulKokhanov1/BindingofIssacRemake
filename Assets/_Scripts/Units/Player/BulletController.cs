@@ -68,7 +68,8 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("contact");
+
+        Debug.Log("contact: " + collision.tag);
         if(collision.tag == "Enemy" && !isEnemyBullet)
         {
             collision.gameObject.GetComponent<EnemyController>().DamageEnemy(1);

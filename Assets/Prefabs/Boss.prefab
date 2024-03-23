@@ -51,7 +51,7 @@ MonoBehaviour:
   range: 5
   speed: 3
   attackRange: 1
-  cooldown: 2
+  cooldown: 1
   bulletSpeed: 0
   health: 10
   damage: 1

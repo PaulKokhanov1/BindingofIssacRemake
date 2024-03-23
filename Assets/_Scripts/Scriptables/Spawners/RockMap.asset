@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cd4acf6125b3dc41b6d279b4c647577, type: 3}
-  m_Name: BoneyEnemy
+  m_Name: RockMap
   m_EditorClassIdentifier: 
-  itemToSpawn: {fileID: 5215311847665633837, guid: 7f393116ab79c1a4a81167ac058361c3, type: 3}
+  itemToSpawn: {fileID: 7064478560911808529, guid: c1c7ab4a88bd3c74a85f2171e74af749, type: 3}
   minSpawn: 0
-  maxSpawn: 3
+  maxSpawn: 5
