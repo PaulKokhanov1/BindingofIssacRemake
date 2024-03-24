@@ -57,7 +57,7 @@
     <li><a href="#history">History</a></li>
     <li><a href="#about-my-implementation">About My Implementation</a></li>
     <li><a href="#obstacles-and-observations">Obstacles and Observations</a></li>
-    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#next-steps">Next Steps</a></li>
     <li><a href="#bugs">Bugs</a></li>
     <li><a href="#conclusion">Conclusion</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -88,12 +88,13 @@ My goal was to recreate the Lunar Lander environment using Unity’s MLAgents li
 
 * [![CSharp][CSharp.com]][CSharp-url]
 * [![Unity][Unity.com]][Unity-url]
+* [![Gimp][Gimp.com]][Gimp-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<!-- GETTING STARTED -->
-## Getting Started
+<!-- HISTORY -->
+## History
 
 ### Q-Learning
 
@@ -221,8 +222,8 @@ In Unity, we can record our results using a script called “Demonstration Recor
 
 
 
-<!-- RESULTS -->
-## Results
+<!-- NEXT STEPS -->
+## Next Steps
 
 To begin I will talk about the results of the Dense Reward function training, as seen in the video above, after training the dense reward we had overall good behavior from the agent, but the odd thing was that it preformed much better when spawned on the left side of the platform versus the right. Thus, I continued the training and had it only spawn on the right side of the platform to observe if this would improve its overall performance. We see the final performance below,
 
@@ -269,6 +270,8 @@ With these metrics,
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- BUGS -->
+## Bugs
 
 
 <!-- CONCLUSION -->
@@ -287,7 +290,7 @@ Now in terms of this project. of course it will never be completely finished as 
 
 Paul Kokhanov - [Website](https://paulkokhanov.com/) - paul.kokhanov@gmail.com
 
-Project Link: [https://github.com/PaulKokhanov1/LunarLanderRL](https://github.com/PaulKokhanov1/LunarLanderRL)
+Project Link: [https://github.com/PaulKokhanov1/LunarLanderRL](https://github.com/PaulKokhanov1/BindingofIssacRemake)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -335,5 +338,5 @@ Project Link: [https://github.com/PaulKokhanov1/LunarLanderRL](https://github.co
 [CSharp-url]: https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit
 [Unity.com]: https://img.shields.io/badge/unity-0769AD?style=for-the-badge&logo=unity&logoColor=white
 [Unity-url]: https://unity.com/
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[Gimp.com]: https://img.shields.io/badge/GIMP-FFE01B?style=for-the-badge&logo=gimp&logoColor=%235C5543&color=FFE01B
+[Gimp-url]: https://www.gimp.org/
