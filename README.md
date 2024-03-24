@@ -290,7 +290,7 @@ Now in terms of this project. of course it will never be completely finished as 
 
 Paul Kokhanov - [Website](https://paulkokhanov.com/) - paul.kokhanov@gmail.com
 
-Project Link: [https://github.com/PaulKokhanov1/LunarLanderRL](https://github.com/PaulKokhanov1/BindingofIssacRemake)
+Project Link: [https://github.com/PaulKokhanov1/BindingofIssacRemake](https://github.com/PaulKokhanov1/BindingofIssacRemake)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -299,9 +299,8 @@ Project Link: [https://github.com/PaulKokhanov1/LunarLanderRL](https://github.co
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [Unity MLAgents](https://github.com/Unity-Technologies/ml-agents)
-* [Gymnasium](https://gymnasium.farama.org/)
-* [ML Specialization taught by Andrew Ng](https://www.coursera.org/specializations/machine-learning-introduction)
+* [Spriters Resource](https://www.spriters-resource.com/pc_computer/bindingofisaacrebirth/)
+* [The Binding of Issac](https://store.steampowered.com/app/113200/The_Binding_of_Isaac/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
