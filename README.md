@@ -99,8 +99,10 @@ My desire was to evolve my understanding of game development and coding using C#
 <!-- HISTORY -->
 ## History
 
-To begin, lets briefly describe the game and the history of its creation. Binding of Issac is a roguelike (a style of game that traditionally involves a player going through procedurally generated levels and usually had permanent death of the player) video game. It is a top-down shooter that has the player going through various rooms within a level, defeating enemies and obtaining items and proceeding to the next level upon eliminating the boss of the level. 
+To begin, lets briefly describe the game and the history of its creation. Binding of Issac is a roguelike (a style of game that traditionally involves a player going through procedurally generated levels and usually has permanent death of the player) video game. It is a top-down shooter that has the player going through various rooms within a level, defeating enemies and obtaining items and proceeding to the next level upon eliminating the boss of the level. 
+
 The game originally created by Edmund McMillen (designer and story-creation) & Florian Himsl (programmer) was the results of a week-long game jam. Edmund is actually known for another title he designed called “Super Meat Boy”. The goal of the game was intended to dive into “touchy” subjects in regards to religion, hence McMillen had expected the game to fail. 
+
 McMillien wanted to incorporate the procedural generation inspired by “The Legend of Zelda” game’s dungeon structure. 
 
 
