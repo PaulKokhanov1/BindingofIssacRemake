@@ -167,7 +167,7 @@ public class DungeonGenerator_three : MonoBehaviour
 
         }
 
-        //keeps track which position were at currently at
+        //keeps track which position were are currently at
         int currentCell = startPos;
         bool tmp = false;
         visit(startPos);
@@ -230,7 +230,7 @@ public class DungeonGenerator_three : MonoBehaviour
 
             Debug.Log("Regenerate called");
         }
-        if (!regenerate)
+        else
         {
             GenerateDungeon();
         }

@@ -82,8 +82,8 @@ public class RoomBehaviour : MonoBehaviour
 
     public void OnPlayerEnterRoom(int playerPosX, int playerPosY)
     {
-        Debug.Log("OnplaerEnterRoom called");
-        Debug.Log("Xpos, YPos: " + Xpos+ " " + Ypos + " Player Pos: " + playerPosX + " " + playerPosY);
+        //Debug.Log("OnplaerEnterRoom called");
+        //Debug.Log("Xpos, YPos: " + Xpos+ " " + Ypos + " Player Pos: " + playerPosX + " " + playerPosY);
         if (Mathf.Abs(playerPosX) == Xpos && Mathf.Abs(playerPosY) == Ypos)
         {
             //player is in this instance of the rooms
@@ -120,13 +120,12 @@ public class RoomBehaviour : MonoBehaviour
                 
                 enemy.notInRoom = false;
                 enemy.currState = EnemyState.Wander;
-                Debug.Log("enemy current state: " + enemy.currState);
+                //Debug.Log("enemy current state: " + enemy.currState);
 
                 enemy.Wander();
             }
             foreach (BossController boss in bosses)
             {
-                Debug.Log("Boss not in room changed");
                 
                 boss.notInRoom = false;
                 boss.currState = BossState.Idle;
@@ -169,9 +168,7 @@ public class RoomBehaviour : MonoBehaviour
 
     public IEnumerator CountdownToCloseRooms()
     {
-        Debug.Log("Timer Started");
         yield return new WaitForSeconds(0.5f);
-        Debug.Log("Timer Ended");
 
         closeCurrentRoomDoors();
 

@@ -38,7 +38,6 @@ public class ObjectRoomSpawner : MonoBehaviour
             int randomPos;
             if (data.spawnerData.itemToSpawn == rock) //still need to figure out how to limit spawning for rocks to be away from door, potentially make seperate grid 
             {
-                Debug.Log("ROCK SPAWNED");
                 randomPos = Random.Range(0, grid.avaliablePoints.Count - 1);
             }
             else

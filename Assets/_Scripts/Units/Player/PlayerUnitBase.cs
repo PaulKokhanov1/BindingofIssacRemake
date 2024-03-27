@@ -80,7 +80,6 @@ public class PlayerUnitBase : UnitBase
 
     private void Start()
     {
-        
     }
 
     //good for processing inputs
@@ -262,8 +261,8 @@ public class PlayerUnitBase : UnitBase
         
         posX = Mathf.FloorToInt((transform.position.x + DungeonGenerator_three.instance.offset.x/2) / DungeonGenerator_three.instance.offset.x);
         posY = Mathf.FloorToInt((transform.position.y + DungeonGenerator_three.instance.offset.y/2) / DungeonGenerator_three.instance.offset.y);
-/*        Debug.Log(posX);
-        Debug.Log(posY);*/
+/*        Debug.Log("Player's XPos: " + posX);
+        Debug.Log("Player's YPos: " + posY);*/
 
     }
 
