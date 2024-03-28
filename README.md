@@ -38,6 +38,7 @@
     Being that a huge goal of mine is to pursue game development, whether professionally or personally, I need to establish a strong fundamental basis. Thus, I made a goal to re-create one of my all-time favourite games "The Binding of Issac".
     <br />
     <a href="https://store.steampowered.com/app/113200/The_Binding_of_Isaac/"><strong>See the Game »</strong></a>
+    <a href="https://paul-kokhanov.itch.io/binding-of-issac-remake"><strong>Play My Game! »</strong></a>
     <br />
   </p>
 </div>
