@@ -227,18 +227,24 @@ Not knowing how the creators decided to organize their project (probably pretty 
 
 -	Managers,
     -	Scene specific classes, i.e flow of the game
- 	
 -	Setup
     -	Camera, Lights, post-processing volume, Event System
 -	Environment
-    -	Spawning terrain, trees, tiles
+    -	Spawning terrain, trees, tiles, enemies
 -	Canvases
-    -	Where you put Canvases, canvases are where all the UI goes
+    -	UI elements
 -	Systems
     -	Objects in Scene that use “Don’t Destroy on Load”
     -	Audio System
     -	Resource System
         -	Used for references to scriptable objects
+
+Now as for coding architecture, I was not familiar with many prior to starting game development. Through this project and a few others I have begun to learn more sustainable methods to code. I’ve always been under the impression that having a centralized processing unit seems to be very reliable and ideas that I took from Android Development like MVVM seemed to be applicable in game development. Rather than decoupling the business logic from the screen interaction, I used that same idea to decouple the interface logic from the game logic. Although this was not consistent throughout my project, I did make an effort to explore how I would create such implementations for future projects.
+
+Another coding architecture I used was a Hierarchical Finite State Machine, in creating my EnemyController, I have various states that represented particular behaviors and/or conditions, and I had explicit transitions between these states.
+
+Finally, a very popular design pattern is Entity-Component-System (ECS) which is used to manage the behavior and data of game objects efficiently. Despite not being aware of this design pattern, I did to some extent use this within my coding. For example, in creating my player, my entity was a game object representing my player, then using different components, whether through scripts or pre-defined components such as a boxCollider2D or a Sprite Renderer, I isolated the attributes of the player. Finally, my scripts such as my gameManager were responsible for processing these specific components and updating them as needed, for example handling health, bullet shooting or dying. As it is, Unity in its base form tends to use ECS without needing the developer to explicitly follow this coding architecture, but it’s still a useful design pattern that allows for very flexible and scalable game design.
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -248,17 +254,25 @@ Not knowing how the creators decided to organize their project (probably pretty 
 <!-- OBSTACLES AND OBSERVATIONS -->
 ## Obstacles and Observations
 
-
+Amongst all the different bugs I encountered and the various issues I faced, I’ve selected a few that I thought were notable mentions, that can either be helpful for my future self or any other aspiring developer. 
 
 ### Enemies phasing through Walls
 
+A decent feature to have in your game is to not have enemies from different rooms come and blind-side your player from out of nowhere (cue John Cena theme song). Hence a large problem I faced was enemies from other rooms glitching through my tile maps or the enemies in the current room leaving the area. Now, of course, the biggest issue is the blatant enemy increase or decrease in the room the player is in but also, as my game logic to lock the doors in each room depended on how many enemies were present in the room, once an enemy left, the player was ultimately stuck in the room forever. Hence, to solve this issue, I applied two features:
+
+1.	Make all enemies in other rooms than the current one into an “Idle” state. This also aided in preserving CPU usage as there were less physics movements being calculated throughout the scene
+   
+2.	Changing the movement of the enemies to use velocity instead of transform.position
 
 ### Item Animations
 
+A rather simple but annoying obstacle was seeing simple position transform animations never setting in the position you meant them to set. For example, you instantiate an item object at position x with an animation to bounce it up and down. Next thing you know, as soon as the item begins bouncing in game it changes position to somewhere completely different. This comes from directly manipulating the objects transform in its animator. So, the only solution to this that I was aware of, was to place all animations as child objects of a parent. Then simply adjust the parent transform in order to position the object in a certain location.
 
 ### Less than minimum number of Rooms Created
 
+Within the procedural generation of the dungeon, there is a possibility that we could generate a small number of rooms, which would create issues throughout the game loop, such as, not enough space for “special” rooms. Thus, I set up a minimumRooms variable. If the room count by the end of the procedural generation is not above this minimum, I simply recall the entire algorithm until we have reached the minimum number of rooms.
 
+This seemed all well and efficient until I noticed a couple bugs. Firstly, on the regeneration of rooms I noticed sometimes special rooms were not being generated, or doors would be instantiated leading to a non-existing room. I found that when regenerating my dungeon, I was facing a race condition in which I’d recall the algorithm but at the same time call the instantiation of each cell that was supposed to be created. Thus, this caused new rooms to be “created” from the re-run of the dungeon generation but the actual instantiation of the cells would’ve already occurred. To solve this problem, I simply continuously recalled the algorithm from the start until we met the criteria that the number of rooms was greater than my minimum and then we’d call the instantiation of each of these rooms. In my opinion, continuously recalling an algorithm until it gives you what you want isn’t the best approach, however, in this case, there is only a small chance that the dungeon generation generates less than the minimum number of rooms hence, I found recalling the algorithm acceptable.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -267,27 +281,62 @@ Not knowing how the creators decided to organize their project (probably pretty 
 <!-- NEXT STEPS -->
 ## Next Steps
 
+As with most projects, your scope can be endless. Especially with making games there is always something to optimize or add, thus in the future, when I find more time, I would like to add the following features to the game.
 
 ### The Minimap
 
+![image](https://github.com/PaulKokhanov1/BindingofIssacRemake/assets/69466838/2c0ce4a3-d69a-47a1-9c2a-0477fc3ea8f7)
+
+This feature shows the first unentered room that the player is aware of. Hence there can be further rooms beyond, however as the player has not searched these rooms yet, they do not know whether there are more rooms or not.
+
 ### More Items, Objects and Enemies
+
+![image](https://github.com/PaulKokhanov1/BindingofIssacRemake/assets/69466838/962a953c-82a2-467e-be13-06d0a494c75e)
+
+This feature is simply a constraint on time. As Animating and recreating similar logic for different enemy, objects and item types was essentially remaking already existing objects it didn’t seem to be the best use of my time to continue adding more. However, given more time, I could definitely add a couple bosses, enemies and power-ups.
+
 
 ### Rooms
 
+![image](https://github.com/PaulKokhanov1/BindingofIssacRemake/assets/69466838/b0016a99-c715-402f-a96c-14b1bd1cd6a0)
+
+Another big part of BOI is the various room layouts. In my case I stuck to using one room type as it simplified the process of connecting different rooms together, but in the future, I would like to create rooms of different dimensions and explore how to accurately connect them to give the game more of a “refreshing” feeling rather than always exploring the same room type. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- BUGS -->
 ## Bugs
 
+In this section, I’d like to briefly explain a couple bugs within the game and possible solutions that may or may not work.
+
 ### Player getting stuck between rooms
+
+https://github.com/PaulKokhanov1/BindingofIssacRemake/assets/69466838/5347a63f-1a82-4a14-8925-8e081818dc04
+
+https://github.com/PaulKokhanov1/BindingofIssacRemake/assets/69466838/e80d1f9e-f58b-45d0-9ef6-203f57731472
+
+As of now I am consistently checking my player’s position in the Update() function and starting events once a player moves between rooms. These events trigger a countdown coroutine to enable boxColliders on the room’s doors’. However, I have found on many instances that if a player is fast enough or slow enough two things can happen:
+
+1.	If the Player is fast enough, they will be able to enable the countdown coroutine and then move back to the previous room before the coroutine ends and thus enabling the boxColliders even when the player is outside the room, causing the game to be un completable.
+   
+2.	If the player is slow enough, they will trigger the playerPositionChange event and have the boxColliders be enabled while the player is not yet fully in the room, causing them to essentially be stuck within the boxCollider
+
+Now, I attempted lessening the countdown timer to account for bug 1, but it only causes bug 2 to be more prevalent. Thus, I do believe my implementation of room switching is wrong. The more optimal way would be to control the players entrance into a room using an OnTriggerExit2D event. This would allow me to ensure the player is in the room before locking the doors. 
 
 ### Tears immediately being destroyed when shooting when player is at the top wall
 
+https://github.com/PaulKokhanov1/BindingofIssacRemake/assets/69466838/5cb07342-4d65-4312-a644-c75bdfe73534
+
+Currently, whenever the player is standing as close as they can to the top wall, all instances of bullets they fire are immediately destroyed because the engine thinks that the bullets are colliding with an object. This prevents the player from essentially shooting or defeating enemies if they are pressed to the top wall. Now my hypothetical solution would be to:
+
+-	Increase the players hitbox such that they are pushed further from the top wall whenever they are close to it and thus instantiating the bullet prefab slightly lower on the players transform.position
+
+There are obviously many… and I mean many more bugs (as you would probably find when playing the game) but ultimately, we know it’s impossible to exhaustively eliminate bugs, hence those are a few I have to address and my thoughts on how to solve them.
 
 <!-- CONCLUSION -->
 ## Conclusion
 
+Overall, being this was my first “long” term project, I am quite satisfied with the result. By no means is it polished and there are lots of things to learn. But as a starting point I have gained a lot of new skills and appreciation for game development. This project has just made me more excited to explore the various possible applications within Unity. Whether that be more games, such as exploring a 3D adventure or an RTS game. I have already started working on a few simple VR applications that have given me more insight into the 3D space. Regardless of where my future projects will take me, I am quite excited to continue learning and applying this newly gained knowledge in all aspects of my development.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
