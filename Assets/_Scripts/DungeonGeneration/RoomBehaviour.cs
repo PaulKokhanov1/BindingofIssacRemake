@@ -22,6 +22,7 @@ public class RoomBehaviour : MonoBehaviour
     private float delay = 10f;
     private float timer = 0f;
 
+    //Subscribing to delegates 
     private void OnEnable()
     {
         PlayerUnitBase.OnPlayerPosChange += OnPlayerEnterRoom;
@@ -63,6 +64,9 @@ public class RoomBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Used to open the trapdoor in the boss level after the boss is defeated
+    /// </summary>
     public void openEnding()
     {
         if(trapDoor != null)
@@ -79,6 +83,10 @@ public class RoomBehaviour : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// Handles checking if the players position is in the specific room this script is added to
+    /// </summary>
 
     public void OnPlayerEnterRoom(int playerPosX, int playerPosY)
     {
@@ -98,6 +106,7 @@ public class RoomBehaviour : MonoBehaviour
             {
                 StartCoroutine(CountdownToCloseRooms());
 
+                //If player is in boss room activate UI health bar of boss
                 foreach (BossController boss in bosses)
                 {
                     boss.healthBar.gameObject.SetActive(true);
@@ -106,6 +115,10 @@ public class RoomBehaviour : MonoBehaviour
             
         }
     }
+
+    /// <summary>
+    /// Sets the appropriate state of each enemy and/or boss if player is in the room or not
+    /// </summary>
     public void UpdateCurrentRooms()
     {
         EnemyController[] enemies = GetComponentsInChildren<EnemyController>();
@@ -145,6 +158,9 @@ public class RoomBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Once all enemies defeated in specific room, then open doors and allow player to move to next room
+    /// </summary>
     public void checkEnemiesInRoom()
     {
         EnemyController[] enemies = GetComponentsInChildren<EnemyController>();
@@ -166,6 +182,10 @@ public class RoomBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Need to use countdown to close doors, otherwise player would get stuck as they try to enter a room
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator CountdownToCloseRooms()
     {
         yield return new WaitForSeconds(0.5f);

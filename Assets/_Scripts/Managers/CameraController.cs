@@ -30,7 +30,9 @@ public class CameraController : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Constantly checking players position and moving camera to center of room that player is in
+    /// </summary>
     void UpdatePosition()
     {
         if (DungeonGenerator_three.instance.checkifPlayerInInstantiatedRoom(player.posX, player.posY))

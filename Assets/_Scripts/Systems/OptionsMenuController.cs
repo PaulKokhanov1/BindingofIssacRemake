@@ -77,7 +77,7 @@ public class OptionsMenuController : MonoBehaviour
     void Update()
     {
 
-
+        //Manaing Options menu traversal using arrows keys
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (Selection <= 4) //3 is the number of buttons we have

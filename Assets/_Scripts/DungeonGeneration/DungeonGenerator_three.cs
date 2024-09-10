@@ -48,12 +48,6 @@ public class DungeonGenerator_three : MonoBehaviour
     {
         instance = this;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public bool checkifPlayerInInstantiatedRoom(int posX, int posY)
     {
         if (board[Mathf.FloorToInt(posX + Mathf.Abs(posY) * 10)].visited == 1)
@@ -147,11 +141,17 @@ public class DungeonGenerator_three : MonoBehaviour
             }
         }
 
-        //doing this to hopefully instantiate the doors closign once dungeon is generated but not sure if it is necessary
+        //doing this to hopefully instantiate the doors closing once dungeon is generated but not sure if it is necessary
         curRoom.OnPlayerEnterRoom(5, 4);
-        //StartCoroutine(gridController.waitForDungeonGeneraton());
     }
 
+    /// <summary>
+    /// Uses a BFS type generation algorithm to generate random rooms outward from starting position
+    /// Keeps track of end rooms to later place special rooms at these locations
+    /// Follows protocol given in https://www.boristhebrave.com/2020/09/12/dungeon-generation-in-binding-of-isaac/
+    /// Regenerates dungeon if number of rooms is less than minimum expected
+    /// </summary>
+    /// <param name="regenerate"></param>
     void MazeGenerator(bool regenerate = false)
     {
         //generate number of rooms in level
@@ -183,7 +183,7 @@ public class DungeonGenerator_three : MonoBehaviour
             if (x > 1)
             {
                 tmp = visit(currentCell - 1);
-                created = created | tmp; //maybe try amking visit a var and preforming the if statement for doors after visit is returned
+                created = created | tmp; 
                 if (tmp)
                 {
                     editDoors(currentCell - 1, currentCell, board);
@@ -291,6 +291,7 @@ public class DungeonGenerator_three : MonoBehaviour
 
     /// <summary>
     /// Move this to a utils class later
+    /// Shuffles a list randomly
     /// </summary>
     void Shuffle<T>(List<T> inputList)
     {
@@ -302,14 +303,11 @@ public class DungeonGenerator_three : MonoBehaviour
             inputList[rand] = temp;
         }
     }
-/*    void popRandomEndRoom()
-    {
-        var index = Mathf.floor(Math.random() * endrooms.length);
-        var i = endrooms[index];
-        endrooms.splice(index, 1);
-        return i;
-    }*/
 
+
+    /// <summary>
+    /// THis function is sued ot enable or disable the appropriate door for each room, i.e make it visible or not and disable or enable the collider
+    /// </summary>
     void editDoors(int newCell, int currentCell, List<Cell> board)
     {
         //cell is going either down or right

@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Used to spawn abilities in treasure rooms
+/// Determines which item to spawn depending on given probability
+/// </summary>
 public class SpawnerItems : MonoBehaviour
 {
 
@@ -43,9 +48,4 @@ public class SpawnerItems : MonoBehaviour
         GameObject i = Instantiate(items[chosenIndex].gameObject, transform.position, Quaternion.identity) as GameObject;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

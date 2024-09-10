@@ -35,6 +35,7 @@ public class GridController : MonoBehaviour
         grid.columns = Mathf.FloorToInt(roomWidth - 2f);
         grid.rows = Mathf.FloorToInt(roomHeight - 1f);
         Debug.Log("Xpos, YPos: " + room.GetComponent<RoomBehaviour>().Xpos + " " + room.GetComponent<RoomBehaviour>().Ypos);
+        //Ensuring we do not generate a grid for our starting room, to not spawn enemies and items here
         if (room.GetComponent<RoomBehaviour>().Xpos != 5 && room.GetComponent<RoomBehaviour>().Ypos != 4)
         {
             GenerateGrid();
@@ -43,6 +44,11 @@ public class GridController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Generates the grid by locating the appropriate position of the room
+    /// Creates grid from bottom left to top right
+    /// Adds each grid to list of avaliable points for this specific room, to be used by the ObjectRoomSpawner
+    /// </summary>
     private void GenerateGrid()
     {
         grid.verticalOffset += room.transform.localPosition.y;

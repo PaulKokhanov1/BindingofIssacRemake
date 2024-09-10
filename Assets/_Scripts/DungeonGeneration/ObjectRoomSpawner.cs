@@ -8,18 +8,13 @@ public class ObjectRoomSpawner : MonoBehaviour
     public struct RandomSpawner
     {
         public string name; //type of item we are spawning
-        public SpawnerData spawnerData;
+        public SpawnerData spawnerData; //Scriptable Object indicating type of object, and min and max spawn amount per room
     }
 
     public GridController grid;
     public RandomSpawner[] spawnerData;
     public GameObject rock;
 
-
-    private void Start()
-    {
-        //grid = GetComponentInChildren<GridController>();
-    }
 
     public void InitializeObjectSpawning()
     {
@@ -29,6 +24,12 @@ public class ObjectRoomSpawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawning All scriptable objects passed to this game object
+    /// Selects random amount from min and max of each scriptable object
+    /// then spawns object and removes avaliable point from list to avoid spawning multiple objects in one place
+    /// </summary>
+    /// <param name="data"></param>
     void SpawnObjects(RandomSpawner data)
     {
         int randomIteration = Random.Range(data.spawnerData.minSpawn, data.spawnerData.maxSpawn + 1);
@@ -36,7 +37,7 @@ public class ObjectRoomSpawner : MonoBehaviour
         for (int i = 0; i < randomIteration; i++)
         {
             int randomPos;
-            if (data.spawnerData.itemToSpawn == rock) //still need to figure out how to limit spawning for rocks to be away from door, potentially make seperate grid 
+            if (data.spawnerData.itemToSpawn == rock)  
             {
                 randomPos = Random.Range(0, grid.avaliablePoints.Count - 1);
             }

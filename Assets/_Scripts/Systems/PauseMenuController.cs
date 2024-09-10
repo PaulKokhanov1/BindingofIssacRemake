@@ -33,6 +33,7 @@ public class PauseMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Managing Menu items traversal using arrow keys
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (Selection <= 3) //3 is the number of buttons we have

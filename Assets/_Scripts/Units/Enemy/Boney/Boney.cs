@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
+/// <summary>
+/// Class used for managing animations
+/// </summary>
 public class Boney : MonoBehaviour
 {
 
     private EnemyController enemyController;
     private Animator animator;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         enemyController = GetComponentInParent<EnemyController>();
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
             if (enemyController.movementDirection.x != 0 || enemyController.movementDirection.y != 0)

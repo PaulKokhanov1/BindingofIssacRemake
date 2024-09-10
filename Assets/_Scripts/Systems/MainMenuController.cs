@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    public float Selection;
+    public float Selection; // Which option the user is currently on
 
     [Space(10)]
     [Header("Start")]
@@ -30,6 +30,7 @@ public class MainMenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Managing Menu items traversal using arrow keys
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (Selection <= 3) //3 is the number of buttons we have

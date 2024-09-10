@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class used for managing animations
+/// </summary>
 public class Fly : MonoBehaviour
 {
     private EnemyController enemyController;

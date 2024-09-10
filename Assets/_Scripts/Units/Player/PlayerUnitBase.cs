@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 
 //used for logic regarding Player Specific elements, like movement & shooting
-public class PlayerUnitBase : UnitBase
+public class PlayerUnitBase : MonoBehaviour
 {
 
     public float moveSpeed;

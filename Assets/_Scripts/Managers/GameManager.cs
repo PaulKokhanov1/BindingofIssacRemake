@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        //Resetting all player abilites and health to default in the case of a new game
         if (AudioManager.instance.newGame)
         {
             health = 6;
@@ -77,11 +78,7 @@ public class GameManager : MonoBehaviour
             health -= damage;
             OnPlayerDamaged?.Invoke();  //null check and invoking the action
             FindObjectOfType<AudioManager>().Play("Issac Hurt");
-
         }
-
-
-
         if (health <= 0)
         {
             KillPlayer();

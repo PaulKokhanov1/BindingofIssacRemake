@@ -11,6 +11,9 @@ public class Item
 }
 
 
+/// <summary>
+/// This class is used to handle all possible items a player can collect and then activiate the appropriate buff or debuff
+/// </summary>
 public class CollectionController : MonoBehaviour
 {
 
@@ -22,6 +25,8 @@ public class CollectionController : MonoBehaviour
     public float bulletSizeChange;
     public bool doubleShot;
     public bool dashAbility;
+
+
 
     // Start is called before the first frame update
     void Start()
